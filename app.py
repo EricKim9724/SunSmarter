@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from utils import recommender,reminder, authorisation,mapfunc
+from utils.recommender import sunscreen_recommend
+
 
 #Sets the page configuration to wide by default
 st.set_page_config(layout  = "wide")
@@ -55,7 +58,7 @@ with tab1:
     # Recommenders
     with t1_col2:
         st.subheader("Staying Sunsafe Outdoors")      
-        st.selectbox("Activity Type",
+        activity_type = st.selectbox("Activity Type",
         ("Swimming/Water Activity", "High Intensity Sports", "Low Intensity Sports"),
         index=None, placeholder="Select Activity Type",label_visibility = "collapsed")
         
@@ -68,11 +71,31 @@ with tab1:
         st.subheader("UV Index")
         current_location_uv = 10
         uv = st.slider("UV",0,12, value = current_location_uv,label_visibility = "collapsed")
+
+        
         st.subheader("Clothing Recommender", divider= "orange")
         test = recommender.cloth_recommend()
         st.text(test)         
+
+
+        # Mingxin changes！ Calculator Section
         st.subheader("Sunscreen Recommender", divider= "orange") 
-        st.text("500L of Sunscreen") 
+        st.markdown("**Please enter your height and weight below:**")
+        user_height = st.slider("**Height (cm)**", 100, 250, 170)
+        user_weight = st.slider("**Weight (kg)**", 30, 200, 70)
+
+
+        # When calling the sunscreen_recommend function, pass the selected activity type to it
+        sunscreen_usage_df = sunscreen_recommend(uv, user_height, user_weight, activity_type)
+        # Display instructions for sunscreen application
+        st.markdown("**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors.")
+        st.markdown("**Reapply regularly:** Every two hours and immediately after swimming, sweating or toweling off.")
+        st.markdown("**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade.")
+        # Round the values in the sunscreen usage DataFrame to one decimal place
+        sunscreen_usage_df = sunscreen_usage_df.round(1)
+        # Display sunscreen usage information in tabular form
+        st.write(sunscreen_usage_df)
+        
         
 
 
