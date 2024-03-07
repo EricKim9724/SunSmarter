@@ -57,28 +57,30 @@ with tab1:
 
     # Recommenders
     with t1_col2:
+
+        # Start Outdoor Session Functionality
         st.subheader("Staying Sunsafe Outdoors")      
         activity_type = st.selectbox("Activity Type",
         ("Swimming/Water Activity", "High Intensity Sports", "Low Intensity Sports"),
         index=None, placeholder="Select Activity Type",label_visibility = "collapsed")
-        
         sub_col1, sub_col2 = st.columns([3,1])
         with sub_col1:
             st.button("Start Outdoor Session",type= "primary", use_container_width=True)
         with sub_col2:
             st.toggle("Get Reminders",value= True)
-
+        
+        # Adjustable Slider for Recommendations
         st.subheader("UV Index")
         current_location_uv = 10
         uv = st.slider("UV",0,12, value = current_location_uv,label_visibility = "collapsed")
 
-        
+
+        # Clothing Recommender
         st.subheader("Clothing Recommender", divider= "orange")
-        test = recommender.cloth_recommend()
-        st.text(test)         
+        clothes = recommender.cloth_recommend()
+        st.text(clothes) 
 
-
-        # Mingxin changes！ Calculator Section
+        # Sunscreen Recommender        
         st.subheader("Sunscreen Recommender", divider= "orange") 
         st.markdown("**Please enter your height and weight below:**")
         user_height = st.slider("**Height (cm)**", 100, 250, 170)
@@ -103,6 +105,7 @@ with tab1:
 with tab2:
     padding = st.container(height=20,border= False)
     t2_col1, t2_col2 = st.columns(2)
+
     # Log of all reminders
     with t2_col1:
         st.subheader("UV Index")
@@ -113,6 +116,7 @@ with tab2:
             }
         )
         st.dataframe(reminder_log,hide_index=True, use_container_width=True)
+
     # Visualisation of reminder history?
     with t2_col2:
         st.subheader("Summary: You had XX hours of sun exposure in the last week")
@@ -122,14 +126,17 @@ with tab2:
 with tab3:
     padding = st.container(height=20,border= False)
     t3_col1, t3_col2, t3_col3 = st.columns(3)
+
     # Cancer Risk Info
     with t3_col1:
         st.subheader("Dangers of Sun Exposure", divider= "red")
         st.write("Placeholder")
+
     # Sun Safety Practices
     with t3_col2:
         st.subheader("Staying Sun Safe", divider= "orange")
         st.write("Placeholder")
+
     # Sun Protection for Kids
     with t3_col3: 
         st.subheader("Sun Safety for Kids", divider= "rainbow")
