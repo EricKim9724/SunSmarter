@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from utils import recommender,reminder, authorisation,mapfunc
 
 #Sets the page configuration to wide by default
 st.set_page_config(layout  = "wide")
@@ -8,7 +9,7 @@ st.set_page_config(layout  = "wide")
 col1,col2 = st.columns([1.5,10])
 
 with col1:
-    st.image("logo.png", width = 128)
+    st.image("./assets/logo.png", width = 128)
 
 with col2:
     title = '''
@@ -68,7 +69,8 @@ with tab1:
         current_location_uv = 10
         uv = st.slider("UV",0,12, value = current_location_uv,label_visibility = "collapsed")
         st.subheader("Clothing Recommender", divider= "orange")
-        st.text("Wear something cool")         
+        test = recommender.cloth_recommend()
+        st.text(test)         
         st.subheader("Sunscreen Recommender", divider= "orange") 
         st.text("500L of Sunscreen") 
         
