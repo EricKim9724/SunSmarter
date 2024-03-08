@@ -1,14 +1,58 @@
+import logging
 
 import pandas as pd
 
-def cloth_recommend():
-    return "xdd"
-
-
-
-
-
+def cloth_recommend(uv_index):
+    # Clothing recommendations with corresponding image filenames
+    clothing_recommendations = {
+        0: ("You can wear light and breathable clothing such as short sleeves and shorts. "
+            "Ensure to apply sunscreen on exposed areas.",
+            "Hat_shortshirt_shortpants"),  # Example image filenames without file extension
+        1: ("Light clothing like short sleeves and shorts are suitable. "
+            "Consider wearing a wide-brimmed hat.",
+            "Hat_shortshirt_shortpants"),
+        2: ("Light clothing like short sleeves and shorts are suitable. "
+            "Don't forget to apply sunscreen.",
+            "Hat_shortshirt_shortpants"),
+        3: ("Wear clothing that provides moderate protection such as long sleeves, pants, and a wide-brimmed hat. "
+            "Apply sunscreen generously.",
+            "Hat_longshirt_longpants"),
+        4: ("Opt for clothing with sun protection like long sleeves, pants, and a wide-brimmed hat. ",
+            "Hat_longshirt_longpants"),
+        5: ("Choose clothing with strong sun protection such as long sleeves, pants, a wide-brimmed hat, and sunglasses.",
+            "Hat_sunglasses_UVprotection_longpants"),
+        6: ("Wear clothing with maximum sun protection and consider staying indoors or seeking shade during peak sun hours.",
+            "Hat_sunglasses_UVprotection_longpants"),
+        7: ("Stay indoors or wear clothing with maximum sun protection if you need to go outside. "
+            "Avoid direct sun exposure.",
+            "Hat_sunglasses_UVprotection_longpants"),
+        8: ("Avoid outdoor activities if possible. If you must go outside, wear clothing with maximum sun protection "
+            "and stay in shaded areas.",
+            "Hat_sunglasses_UVprotection_longpants"),
+        9: ("Limit outdoor activities to essential tasks only. Wear clothing with maximum sun protection and avoid sun exposure.",
+            "DarkHat_sunglasses_darkUV_darkpants"),
+        10: ("Avoid outdoor activities. If you need to go outside, wear clothing with maximum sun protection, "
+             "seek shade, and limit sun exposure.",
+             "DarkHat_sunglasses_darkUV_darkpants"),
+        11: ("Avoid outdoor activities completely. Stay indoors or wear protective clothing if you need to go outside "
+             "for essential tasks.",
+             "DarkHat_sunglasses_darkUV_darkpants"),
+        12: ("Avoid outdoor activities at all costs. Stay indoors and keep all skin covered to prevent sunburn and skin damage.",
+             "DarkHat_sunglasses_darkUV_darkpants")
+    }
     
+    recommendation, image_filenames = clothing_recommendations.get(uv_index, 
+                                                                  ("No specific recommendation for this UV index.",
+                                                                   None))
+    
+    logging.info(f"image_filenames: {image_filenames}, type: {type(image_filenames)}")  # Add this line for debugging
+    
+    if isinstance(image_filenames, str):  # Check if image_filenames is a string
+        return recommendation, ",".join(image_filenames.split("_"))
+    else:
+        return recommendation, None
+
+
 
 def sunscreen_recommend(uv_index, height, weight, activity_type):
     # Calculate usage
