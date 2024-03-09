@@ -1,8 +1,7 @@
 streamlit
 streamlit-authenticator
 pandas
-mysqlclient
-mysql-connector-python
+pymysql
 request
 google-api-core
 google-api-python-client

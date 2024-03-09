@@ -26,6 +26,7 @@ with col2:
             </p>
             """
     st.markdown(title, unsafe_allow_html=True)
+    
 # login page
 if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunSmarter")
