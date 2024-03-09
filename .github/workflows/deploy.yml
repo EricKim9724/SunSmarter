@@ -14,11 +14,33 @@ jobs:
   streamlit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - uses: streamlit/streamlit-app-action@v0.0.3
+
+      - name: Check streamlit app
+        uses: streamlit/streamlit-app-action@v0.0.3
         with:
           app-path: app.py
           ruff: true
+
+      - name: Copy files via ssh and deploy latest
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_HOST }}
+          username: ${{ secrets.AZURE_USERNAME }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
+          script: |
+            container_exists=$(docker ps -a --filter "name=streamlit_container" --format '{{.Names}}')
+            if [ ! -z "$container_exists" ]; then
+              docker stop streamlit_container
+              docker rm streamlit_container
+            fi
+            cd /home/victorgoh/
+            curl -O https://raw.githubusercontent.com/EricKim9724/SunSmarter/main/Dockerfile
+            docker build -t streamlit:latest .
+            docker run -d -p 8501:8501 --name streamlit_container streamlit:latest
