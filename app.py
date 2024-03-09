@@ -163,47 +163,59 @@ else:
         
 
 
-    # Reminder History
-    with tab2:
-        padding = st.container(height=20, border=False)
-        t2_col1, t2_col2 = st.columns(2)
+        # Reminder History
+        with tab2:
+            padding = st.container(height=20, border=False)
+            t2_col1, t2_col2 = st.columns(2)
 
-        # Log of all reminders
-        with t2_col1:
-            st.subheader("UV Index")
-            reminder_log = pd.DataFrame(
-                {
-                    "date_time": [
-                        "2024-03-06 11:00:00",
-                        "2024-03-06 13:00:00",
-                        "2024-03-06 15:00:00",
-                    ],
-                    "received": ["Yes", "Ignored", "Yes"],
-                }
-            )
-            st.dataframe(reminder_log, hide_index=True, use_container_width=True)
+            # Log of all reminders
+            with t2_col1:
+                st.subheader("UV Index")
+                reminder_log = pd.DataFrame(
+                    {
+                        "date_time": [
+                            "2024-03-06 11:00:00",
+                            "2024-03-06 13:00:00",
+                            "2024-03-06 15:00:00",
+                        ],
+                        "received": ["Yes", "Ignored", "Yes"],
+                    }
+                )
+                st.dataframe(reminder_log, hide_index=True, use_container_width=True)
 
-        # Visualisation of reminder history?
-        with t2_col2:
-            st.subheader("Summary: You had XX hours of sun exposure in the last week")
-            st.subheader("Placeholder for Some data viz")
+            # Visualisation of reminder history?
+            with t2_col2:
+                st.subheader("Summary: You had XX hours of sun exposure in the last week")
+                st.subheader("Placeholder for Some data viz")
 
-    # Reminder History
-    with tab3:
-        padding = st.container(height=20, border=False)
-        t3_col1, t3_col2, t3_col3 = st.columns(3)
+        # Task 1.3 UV Impacts Handbook
+        with tab3:
+            padding = st.container(height=20, border=False)
+            t3_col1, t3_col2, t3_col3 = st.columns(3)
 
-        # Cancer Risk Info
-        with t3_col1:
-            st.subheader("Dangers of Sun Exposure", divider="red")
-            st.write("Placeholder")
+            # Cancer Risk Info
+            with t3_col1:
+                st.subheader("Dangers of Sun Exposure", divider="red")
+                st.write("There is well established evidence that exposure to ultraviolet radiation (UVR) from the sun can lead to skin cancer and eye damage. For best protection use a combination of sun protection measures.")
+                st.write("Australia has one of the highest rates of skin cancer in the world. At least two in three Australians will be diagnosed with skin cancer by the age of 70. The major cause of skin cancer is exposure to ultraviolet (UV) radiation from the sun.")
+                st.write("Fortunately, UV induced skin cancer is almost entirely preventable and high profile awareness and information campaigns telling Australians how to save their skin have been in place for several decades.")
+                st.markdown("""[Prevention policy](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention-policy).""", unsafe_allow_html=False)
+                st.markdown("""[National Cancer Care Policy](https://www.cancer.org.au/about-us/policy-and-advocacy/national-cancer-care-policy).""", unsafe_allow_html=False)
+                st.markdown("""[Early detection policy](https://www.cancer.org.au/about-us/policy-and-advocacy/early-detection-policy).""", unsafe_allow_html=False)
+                st.markdown("""[Private ownership and use of solariums in Australia](https://www.cancer.org.au/about-us/policy-and-advocacy/position-statements/uv/private-solariums).""", unsafe_allow_html=False)
+                
+            # Sun Safety Practices
+            with t3_col2:
+                st.subheader("Staying Sun Safe", divider="orange")
+                st.write("Overexposure to ultraviolet (UV) light causes 95% of melanomas. The best way to prevent melanoma is to protect your skin from the sun by following the 5 Sun Safe Rules:")
+                st.image("./assets/5 Sun Safe Rules.png")
 
-        # Sun Safety Practices
-        with t3_col2:
-            st.subheader("Staying Sun Safe", divider="orange")
-            st.write("Placeholder")
+            # Sun Protection for Kids
+            with t3_col3:
+                st.subheader("Sun Safety for Kids", divider="rainbow")
+                st.write("Babies and children are at particular risk of sunburn and skin damage because of their delicate skin. Exposure to UV radiation during the first 15 years of life greatly increases the risk of developing skin cancer later in life.")
+                st.write("Your child's sensitive skin is especially vulnerable to UV radiation. Cancer Council NSW recommends that children under the age of 12 months are not exposed to direct sunlight when UV levels are 3 and above. You can check your local UV levels and the recommended sun protection times (when UV levels are 3 and above) using the free SunSmart app or weather section of most newspapers.")
+                st.image("./assets/sun safety for kids 1.png")
+                st.image("./assets/sun safety for kids 2.png")
+                st.image("./assets/sun safety for kids 3.png")
 
-        # Sun Protection for Kids
-        with t3_col3:
-            st.subheader("Sun Safety for Kids", divider="rainbow")
-            st.write("Placeholder")
