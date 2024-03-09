@@ -116,42 +116,47 @@ else:
             st.write(clothing_advice) 
 
             # Display the images if available
-            if image_filenames:
-                for filename in image_filenames.split(","):
-                    image_path = f"./assets/{filename}.png"  # Assuming images are stored in the assets folder with .jpg extension
-                    st.markdown(
-                        """
-                        <style>
-                            button[title^=Exit]+div [data-testid=stImage]{
-                                text-align: center;
-                                display: block;
-                                margin-left: auto;
-                                margin-right: auto;
-                                width: 100%;
-                            }
-                        </style>
-                        """, unsafe_allow_html=True
-                    )
-                    st.image(image_path, caption=f"{filename.capitalize()}", use_column_width=False, width=300)
-            else:
-                st.write("No images available for this recommendation.")
+            with st.expander("See Visual Recommendations"):
+                if image_filenames:
+                    for filename in image_filenames.split(","):
+                        image_path = f"./assets/{filename}.png"  # Assuming images are stored in the assets folder with .jpg extension
+                        st.markdown(
+                            """
+                            <style>
+                                button[title^=Exit]+div [data-testid=stImage]{
+                                    text-align: center;
+                                    display: block;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    width: 100%;
+                                }
+                            </style>
+                            """, unsafe_allow_html=True
+                        )
+                        st.image(image_path, caption=f"{filename.capitalize()}", use_column_width=False, width=300)
+                else:
+                    st.write("No images available for this recommendation.")
 
             # Task 1.4 Sunscreen Recommender        
             st.subheader("Sunscreen Recommender", divider= "orange") 
             st.markdown("**Please enter your height and weight below:**")
-            user_height = st.slider("**Height (cm)**", 100, 250, 170)
-            user_weight = st.slider("**Weight (kg)**", 30, 200, 70)
+            sub_col3, sub_col4 = st.columns([3, 1])
+            with sub_col3:
+                user_height = st.slider("**Height (cm)**", 100, 250, 170)
+            with sub_col4:
+                user_weight = st.slider("**Weight (kg)**", 30, 200, 70)
 
             # When calling the sunscreen_recommend function, pass the selected activity type to it
-            sunscreen_usage_df = sunscreen_recommend(uv_index, user_height, user_weight, activity_type)
+            sunscreen_usage_df = sunscreen_recommend(uv_index, user_height, user_weight, activity_type).round(1)
             # Display instructions for sunscreen application
-            st.markdown("**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors.")
-            st.markdown("**Reapply regularly:** Every two hours and immediately after swimming, sweating or toweling off.")
-            st.markdown("**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade.")
-            # Round the values in the sunscreen usage DataFrame to one decimal place
-            sunscreen_usage_df = sunscreen_usage_df.round(1)
-            # Display sunscreen usage information in tabular form
-            st.write(sunscreen_usage_df)
+            total_sunscreen = sunscreen_usage_df["Sunscreen Usage (ml)"].sum()
+            st.markdown(f"**Recommendation: Apply {total_sunscreen:.1f}ml of Sunscreen**")
+            with st.expander("See more details"):
+                st.markdown("**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors.")
+                st.markdown("**Reapply regularly:** Every two hours  and immediately after swimming, sweating or toweling off.")
+                st.markdown("**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade.")
+                # Display sunscreen usage information in tabular form
+                st.write(sunscreen_usage_df)
         
         
 
