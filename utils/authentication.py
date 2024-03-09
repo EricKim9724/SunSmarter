@@ -1,0 +1,58 @@
+import streamlit as st
+import bcrypt
+import mysql.connector as mc
+import os
+
+
+# Function to establish a connection to the MySQL database
+def get_connection():
+    return mc.connect(
+        host=os.getenv("DB_HOST"),
+        port=3306,
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+    )
+
+
+# Hash and salt password for protection
+def hash_password(pw):
+    return bcrypt.hashpw(pw.encode("utf-8"), bcrypt.gensalt())
+
+
+def check_password(entered_password, hashed_password):
+    return bcrypt.checkpw(
+        entered_password.encode("utf-8"), hashed_password.encode("utf-8")
+    )
+
+
+# Function to register a new user
+def register_user(email, entered_password):
+    hashed_password = hash_password(entered_password)
+    connection = get_connection()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO users (email, password) VALUES (%s, %s)",
+                (email, hashed_password),
+            )
+        connection.commit()
+        st.success(f"User '{email}' registered successfully!")
+    finally:
+        connection.close()
+
+
+# Function to authenticate a user
+def authenticate_user(email, entered_password):
+    connection = get_connection()
+    try:
+        with connection.cursor() as cursor:
+            # select hashed passwords where the username matches
+            cursor.execute("SELECT password FROM users WHERE email = %s", (email,))
+            result = cursor.fetchone()[0]
+            if result and check_password(entered_password, result):
+                st.success(f"User '{email}' authenticated successfully!")
+            else:
+                st.error("Authentication failed. Incorrect email or password.")
+    finally:
+        connection.close()

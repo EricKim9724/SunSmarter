@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-from utils import recommender, reminder, mapfunc
-from utils.recommender import sunscreen_recommend, cloth_recommend
+from utils import recommender
+from utils.recommender import sunscreen_recommend
+
 # from utils.authorisation import Authenticator
-from utils.authorisation import authenticate
+# from utils.authorisation import authenticate
+from utils.authentication import authenticate_user, register_user
 
 # Sets the page configuration to wide by default
 st.set_page_config(layout="wide")
@@ -26,24 +27,21 @@ with col2:
             """
     st.markdown(title, unsafe_allow_html=True)
 # login page
-if 'logged_in' not in st.session_state or not st.session_state['logged_in']:
+if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunSmarter")
-    with st.form("login_form"):
+    with st.form("Login Form"):
         email = st.text_input("Email")
         password = st.text_input("Password", type="password")
         submit_button = st.form_submit_button("Login")
         if submit_button:
-            # authenticator = Authenticator('API_URL_HERE')
-            # if authenticator.authenticate(email, password):
-            #     st.session_state['logged_in'] = True
-            #     st.experimental_rerun()
-            # else:
-            #     st.error("Login failed. Please check your credentials.")
-            if authenticate(email, password):
-                st.session_state['logged_in'] = True
+            if authenticate_user(email, password):
+                st.session_state["logged_in"] = True
                 st.experimental_rerun()
-            else:
-                st.error("Login failed. Please try again.")
+
+        register_button = st.form_submit_button("Register")
+        if register_button:
+            if register_user(email, password):
+                st.experimental_rerun()
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
@@ -78,7 +76,9 @@ else:
             st.subheader("Search for a Location")
             default_location = None
             df = pd.DataFrame({"lat": [-37.91667], "lon": [145.11667]})
-            text_search = st.text_input("Location", value="", label_visibility="collapsed")
+            text_search = st.text_input(
+                "Location", value="", label_visibility="collapsed"
+            )
             st.map(df, zoom=11, use_container_width=False)
 
         # Recommenders
@@ -99,7 +99,9 @@ else:
             )
             sub_col1, sub_col2 = st.columns([3, 1])
             with sub_col1:
-                st.button("Start Outdoor Session", type="primary", use_container_width=True)
+                st.button(
+                    "Start Outdoor Session", type="primary", use_container_width=True
+                )
             with sub_col2:
                 st.toggle("Get Reminders", value=True)
 
@@ -111,37 +113,47 @@ else:
             )
 
         # Task 1.2 Clothing Recommender
-        st.subheader("Clothing Recommender", divider= "orange")
+        st.subheader("Clothing Recommender", divider="orange")
         clothing_advice, image_filenames = recommender.cloth_recommend(uv_index)
-        st.write(clothing_advice) 
+        st.write(clothing_advice)
 
         # Display the images if available
         if image_filenames:
             for filename in image_filenames.split(","):
                 image_path = f"./assets/{filename}.png"  # Assuming images are stored in the assets folder with .jpg extension
-                st.image(image_path, caption=f"{filename.capitalize()}", use_column_width=True, width=30)
+                st.image(
+                    image_path,
+                    caption=f"{filename.capitalize()}",
+                    use_column_width=True,
+                    width=30,
+                )
         else:
             st.write("No images available for this recommendation.")
 
-        # Task 1.4 Sunscreen Recommender        
-        st.subheader("Sunscreen Recommender", divider= "orange") 
+        # Task 1.4 Sunscreen Recommender
+        st.subheader("Sunscreen Recommender", divider="orange")
         st.markdown("**Please enter your height and weight below:**")
         user_height = st.slider("**Height (cm)**", 100, 250, 170)
         user_weight = st.slider("**Weight (kg)**", 30, 200, 70)
 
         # When calling the sunscreen_recommend function, pass the selected activity type to it
-        sunscreen_usage_df = sunscreen_recommend(uv_index, user_height, user_weight, activity_type)
+        sunscreen_usage_df = sunscreen_recommend(
+            uv_index, user_height, user_weight, activity_type
+        )
         # Display instructions for sunscreen application
-        st.markdown("**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors.")
-        st.markdown("**Reapply regularly:** Every two hours and immediately after swimming, sweating or toweling off.")
-        st.markdown("**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade.")
+        st.markdown(
+            "**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors."
+        )
+        st.markdown(
+            "**Reapply regularly:** Every two hours and immediately after swimming, sweating or toweling off."
+        )
+        st.markdown(
+            "**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade."
+        )
         # Round the values in the sunscreen usage DataFrame to one decimal place
         sunscreen_usage_df = sunscreen_usage_df.round(1)
         # Display sunscreen usage information in tabular form
         st.write(sunscreen_usage_df)
-        
-        
-
 
     # Reminder History
     with tab2:
