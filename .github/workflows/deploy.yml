@@ -26,7 +26,6 @@ jobs:
         uses: streamlit/streamlit-app-action@v0.0.3
         with:
           app-path: app.py
-          ruff: true
 
       - name: Copy files via ssh and deploy latest
         uses: appleboy/ssh-action@v1.0.3
