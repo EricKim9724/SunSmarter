@@ -1,12 +1,12 @@
 import streamlit as st
 import bcrypt
-import mysql.connector as mc
+import pymysql
 import os
 
 
 # Function to establish a connection to the MySQL database
 def get_connection():
-    return mc.connect(
+    return pymysql.connect(
         host=os.getenv("DB_HOST"),
         port=3306,
         user=os.getenv("DB_USER"),
