@@ -2,9 +2,6 @@ import streamlit as st
 import pandas as pd
 from utils import recommender
 from utils.recommender import sunscreen_recommend
-
-# from utils.authorisation import Authenticator
-# from utils.authorisation import authenticate
 from utils.authentication import authenticate_user, register_user
 
 # Sets the page configuration to wide by default
@@ -158,6 +155,17 @@ else:
                 st.markdown("**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors.")
                 st.markdown("**Reapply regularly:** Every two hours  and immediately after swimming, sweating or toweling off.")
                 st.markdown("**Sunscreen does not provide 100% protection:** Wear a wide-brimmed hat, sunglasses, cover-ups and seek shade.")
+                # Add SPF Recommendation
+                if uv_index >= 0 and uv_index <= 2:
+                    st.markdown("**SPF Recommendation:** SPF 5-8 sunscreen is recommended.")
+                elif uv_index >= 3 and uv_index <= 5:
+                    st.markdown("**SPF Recommendation:** SPF 15-30 sunscreen is recommended.")
+                elif uv_index >= 6 and uv_index <= 7:
+                    st.markdown("**SPF Recommendation:** SPF 30-50 sunscreen is recommended.")
+                elif uv_index >= 8 and uv_index <= 10:
+                    st.markdown("**SPF Recommendation:** SPF 50+ sunscreen is recommended.")
+                else:
+                    st.markdown("**SPF Recommendation:** SPF 50+ sunscreen is strongly recommended, along with additional protective measures.")
                 # Display sunscreen usage information in tabular form
                 st.write(sunscreen_usage_df)
         
