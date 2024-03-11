@@ -48,7 +48,7 @@ jobs:
             fi
             cd /home/victorgoh/
             curl -O https://raw.githubusercontent.com/EricKim9724/SunSmarter/main/Dockerfile
-            docker build -t streamlit:latest .
+            docker build --no-cache -t streamlit:latest .
             docker run -d \
               -e DB_HOST=$DB_HOST \
               -e DB_USER=$DB_USER \
