@@ -30,39 +30,39 @@ def cloth_recommend(uv_index):
         ),
         5: (
             "Choose clothing with strong sun protection such as long sleeves, pants, a wide-brimmed hat, and sunglasses.",
-            "Hat_sunglasses_UVprotection_longpants",
+            "Hat_Sunglasses_UVprotection_longpants",
         ),
         6: (
             "Wear clothing with maximum sun protection and consider staying indoors or seeking shade during peak sun hours.",
-            "Hat_sunglasses_UVprotection_longpants",
+            "Hat_Sunglasses_UVprotection_longpants",
         ),
         7: (
             "Stay indoors or wear clothing with maximum sun protection if you need to go outside. "
             "Avoid direct sun exposure.",
-            "Hat_sunglasses_UVprotection_longpants",
+            "Hat_Sunglasses_UVprotection_longpants",
         ),
         8: (
             "Avoid outdoor activities if possible. If you must go outside, wear clothing with maximum sun protection "
             "and stay in shaded areas.",
-            "Hat_sunglasses_UVprotection_longpants",
+            "Hat_Sunglasses_UVprotection_longpants",
         ),
         9: (
             "Limit outdoor activities to essential tasks only. Wear clothing with maximum sun protection and avoid sun exposure.",
-            "DarkHat_sunglasses_darkUV_darkpants",
+            "DarkHat_Sunglasses_darkUV_darkpants",
         ),
         10: (
             "Avoid outdoor activities. If you need to go outside, wear clothing with maximum sun protection, "
             "seek shade, and limit sun exposure.",
-            "DarkHat_sunglasses_darkUV_darkpants",
+            "DarkHat_Sunglasses_darkUV_darkpants",
         ),
         11: (
             "Avoid outdoor activities completely. Stay indoors or wear protective clothing if you need to go outside "
             "for essential tasks.",
-            "DarkHat_sunglasses_darkUV_darkpants",
+            "DarkHat_Sunglasses_darkUV_darkpants",
         ),
         12: (
             "Avoid outdoor activities at all costs. Stay indoors and keep all skin covered to prevent sunburn and skin damage.",
-            "DarkHat_sunglasses_darkUV_darkpants",
+            "DarkHat_Sunglasses_darkUV_darkpants",
         ),
     }
 
