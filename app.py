@@ -16,7 +16,7 @@ with col1:
 with col2:
     title = """
             <p style="font-family:Helvetica; color:orange; font-size: 66px;">
-                <b>SunSmarter</b>
+                <b>SunShieldAdvisor</b>
                 <span style= "font-family:Calibri; color:gray; font-size: 18px;">
                     Your Shield From UV Harm
                 </span>
@@ -27,7 +27,7 @@ with col2:
 
 # login page
 if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
-    st.title("Login to SunSmarter")
+    st.title("Login to SunShieldAdvisor")
     with st.form("Login Form"):
         email = st.text_input("Email")
         password = st.text_input("Password", type="password")

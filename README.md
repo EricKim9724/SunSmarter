@@ -1,4 +1,4 @@
-# SunSmarter
+# SunShieldAdvisor
 
 ## Installation
 
@@ -11,7 +11,7 @@ git clone git@github.com:EricKim9724/SunSmarter.git
 Ensure you have Python installed. Navigate to the project directory and install the requied dependencies:
 
 ```bash
-cd SunSmarter
+cd SunShieldAdvisor
 pip install -r requirements.txt
 ```
 
