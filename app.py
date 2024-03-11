@@ -84,7 +84,7 @@ else:
         # Recommenders
         with t1_col2:
             # Start Outdoor Session Functionality
-            st.subheader("Staying Sunsafe Outdoors")           
+            st.subheader("Staying Sunsafe Outdoors")
             activity_type = st.selectbox(
                 "Activity Type",
                 (
@@ -96,13 +96,19 @@ else:
                 placeholder="Select Activity Type",
                 label_visibility="collapsed",
             )
-            sub_col1, sub_col2 = st.columns([3, 1]) 
+            sub_col1, sub_col2 = st.columns([3, 1])
             with sub_col1:
-                if activity_type not in ["Swimming/Water Activity","High Intensity Sports","Low Intensity Sports"]:
+                if activity_type not in [
+                    "Swimming/Water Activity",
+                    "High Intensity Sports",
+                    "Low Intensity Sports",
+                ]:
                     st.write("Please Select an Activity First")
                 else:
                     if st.toggle("Get Reminders: Outdoor Session"):
-                        st.session_state.user_email = reminder.start_outdoor_session(activity_type)
+                        st.session_state.user_email = reminder.start_outdoor_session(
+                            activity_type
+                        )
 
             with sub_col2:
                 with st.popover(":clipboard: Reminder History"):
@@ -209,7 +215,7 @@ else:
             with t3_col1:
                 st.header("Dangers of Sun Exposure", divider="red")
                 st.subheader("Skin cancer")
-                skincancer_text1 = '''
+                skincancer_text1 = """
                 #### About skin cancer
 
                 Skin cancer can hide in plain sight and in places we might not expect.
@@ -218,12 +224,12 @@ else:
 
                 Although we can’t feel or see UV radiation, we can see UV damage to our skin as it changes colour –- which could be red from sunburn or what people often call a ‘tan’. At any time, skin cancer signs will also become visible, in the form of new spots, changes in colour or shape of existing spots.
 
-                '''
+                """
                 st.markdown(skincancer_text1)
 
                 st.image("./assets/skincancer.png")
 
-                skincancer_text2 = '''
+                skincancer_text2 = """
                 #### Know your skin
 
                 More than 70% of skin cancers are diagnosed by people other than health professionals. As you can see and are familiar with your skin, you are more likely to detect skin cancer. That’s why it’s important to get to know your skin and check it regularly.
@@ -235,12 +241,12 @@ else:
                 Skin cancer is the uncontrolled growth of abnormal cells in the skin. 
 
                 The three main types of skin cancer are basal cell carcinoma (BCC), squamous cell carcinoma (SCC) and melanoma. BCC and SCC are also called non-melanoma skin cancer or keratinocyte cancer, while they are more common than melanoma treatment for any type of skin cancer can be painful, leading to ongoing treatment requirements and life-long surveillance.
-                '''
+                """
                 st.markdown(skincancer_text2)
 
                 st.image("./assets/melanoma.png")
 
-                skincancer_text3 = '''
+                skincancer_text3 = """
                 #### What causes skin cancer?
 
                 More than 95% of skin cancers are caused by exposure to UV radiation.
@@ -258,14 +264,13 @@ else:
                 - Basal and squamous cell carcinoma skin cancers accounted for one quarter of all cancer-related hospitalisations in 2014–15.4 The cost to the health system of these skin cancers alone is estimated to be more than $700 million annually. The costs to the Federal Government and the community from basal and squamous cell carcinomas are predicted to continue to increase in the future.5
                 - In 2021, 2,824 Victorians were diagnosed with melanoma and 291 lost their lives.6
                 - It is estimated that approximately 200 melanomas and 34,000 other skin cancer types per year are caused by occupational exposures in Australia.
-                '''
+                """
                 st.markdown(skincancer_text3)
-
 
             # UV Index & SPF
             with t3_col2:
                 st.header("UV Index & SPF", divider="orange")
-                uv_index_text1 = '''
+                uv_index_text1 = """
                 #### What is UV radiation?
 
                 Ultraviolet (UV) radiation is the invisible killer that you can't see or feel. UV radiation can be high even on cool and overcast days. This means you can't rely on clear skies or high temperatures to determine when you need to protect yourself from the sun
@@ -284,11 +289,11 @@ else:
                 - UVC is the most dangerous type of UV. Ozone in the atmosphere absorbs all UVC and it does not reach the earth’s surface.
                 
                 UV levels are affected by a number of factors including geographic location, altitude, time of day, time of year and cloud cover. This means that UV levels are higher in some parts of Australia than others even on the same day.
-                '''
+                """
 
                 st.markdown(uv_index_text1)
 
-                uv_index_text2 = '''
+                uv_index_text2 = """
                 #### What is the UV Index?
 
                 The UV Index is a tool you can use to protect yourself from UV radiation. It tells you the times during the day that you need to be SunSmart.
@@ -302,11 +307,11 @@ else:
                 - extreme (11 and above).
                 
                 Sun protection times are issued by the Bureau of Meteorology when the UV Index is forecast to reach 3 or above. At that level, it can damage your skin and lead to skin cancer. Sunscreen should be incorporated into your daily routine on these days.
-                '''
+                """
 
                 st.markdown(uv_index_text2)
 
-                uv_index_text3 = '''
+                uv_index_text3 = """
                 #### When should I use the UV Index?
 
                 Look or listen for the UV Index when you are:
@@ -318,13 +323,13 @@ else:
                 - responsible for young children and their outdoor activities.
 
                 If sun protection times have been issued, you need to protect yourself during the times indicated.
-                '''
+                """
 
                 st.markdown(uv_index_text3)
 
                 st.image("./assets/spf.png")
 
-                spf_text1 = '''
+                spf_text1 = """
                 #### What is SPF?
 
                 Sun Protection Factor(SPF) is a measure of how well a sunscreen will protect skin from UVB rays, the kind of radiation that causes sunburn, damages skin, and can contribute to skin cancer.
@@ -341,24 +346,24 @@ else:
                 - SPF 30 (97% protection) allows 3 out of 100 photons through.
 
                 So, while you may not be doubling your level of protection, an SPF 30 will block half the radiation that an SPF 15 would let through to your skin. It’s complicated, but to keep it simple, most dermatologists recommend using a SPF 30 or higher.
-                '''
+                """
                 st.markdown(spf_text1)
 
             # Sun Safety for Kids
             with t3_col3:
                 st.header("Sun Safety for Kids", divider="rainbow")
-                sp_kids_text1 = '''
+                sp_kids_text1 = """
                 Babies and children are at particular risk of sunburn and skin damage because of their delicate skin. Exposure to UV radiation during the first 15 years of life greatly increases the risk of developing skin cancer later in life.
 
                 Your child's sensitive skin is especially vulnerable to UV radiation. Cancer Council NSW recommends that children under the age of 12 months are not exposed to direct sunlight when UV levels are 3 and above. You can check your local UV levels and the recommended sun protection times (when UV levels are 3 and above) using the free SunSmart app or weather section of most newspapers.
 
-                '''
+                """
 
                 st.markdown(sp_kids_text1)
 
                 st.image("./assets/kids.png")
 
-                sp_kids_text2 = '''
+                sp_kids_text2 = """
                 #### Protect your child’s skin by:
 
                 - Cover as much of your children’s skin as possible with loose-fitting clothes made from tightly-woven fabrics.
@@ -381,7 +386,7 @@ else:
                 - Keep children’s hats on.
                 - Reapply sunscreen every two hours or more often if wiped or washed off.
                 - Be a role model for your child and practice good sun protection behaviors yourself.
-                '''
+                """
 
                 st.markdown(sp_kids_text2)
                 st.image("./assets/sun safety for kids 3.png")
