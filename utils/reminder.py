@@ -16,10 +16,17 @@ def google_authenticate():
     if creds and creds.expired and creds.refresh_token:
       creds.refresh(Request())
     else:
-      flow = Flow.InstalledAppFlow.from_client_secrets_file(
-          cred_file_path, SCOPES
-      )
-      creds = flow.run_local_server(port=0)
+        try:
+            flow = Flow.InstalledAppFlow.from_client_secrets_file(
+                cred_file_path, SCOPES        
+            )
+            creds = flow.run_local_server(port=0)
+        except:
+            cred_file_path = "./GCP_LOCAL_CLIENT.json"
+            low = Flow.InstalledAppFlow.from_client_secrets_file(
+                cred_file_path, SCOPES        
+            )
+            creds = flow.run_local_server(port=0)
     service = build("calendar", "v3", credentials=creds)
   return service
 
@@ -84,6 +91,7 @@ def start_outdoor_session(activity_type):
         cursor.execute("INSERT INTO reminder (date,email,activity) VALUES (%s,%s,%s)",(reminder['start']['dateTime'],email,activity_type))  
     connection.commit()
     connection.close()
+    return email
 
 
 
