@@ -3,20 +3,16 @@ import bcrypt
 import pymysql
 import os
 
+DB_HOST = os.getenv("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+
 
 # Function to establish a connection to the MySQL database
 def get_connection():
     return pymysql.connect(
-        #host=os.getenv("DB_HOST"),
-        #port=3306,
-        #user=os.getenv("DB_USER"),
-        #password=os.getenv("DB_PASSWORD"),
-        #database=os.getenv("DB_NAME"),
-        host="sunsmarterdb2.mysql.database.azure.com",
-        port=3306,
-        user="victorgoh",
-        password="Sunsmarter_123",
-        database="appdb",
+        host=DB_HOST, port=3306, user=DB_USER, password=DB_PASSWORD, database=DB_NAME
     )
 
 

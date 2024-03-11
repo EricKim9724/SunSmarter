@@ -34,11 +34,12 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_HOST }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         with:
           host: ${{ secrets.AZURE_HOST }}
           username: ${{ secrets.AZURE_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
-          envs: 
+          envs: DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, WEATHER_API_KEY
           script: |
             container_exists=$(docker ps -a --filter "name=streamlit_container" --format '{{.Names}}')
             if [ ! -z "$container_exists" ]; then
@@ -53,5 +54,6 @@ jobs:
               -e DB_USER=$DB_USER \
               -e DB_PASSWORD=$DB_PASSWORD \
               -e DB_NAME=$DB_NAME \
+              -e WEATHER_API_KEY=$WEATHER_API_KEY \
               -p 8501:8501 \
               --name streamlit_container streamlit:latest
