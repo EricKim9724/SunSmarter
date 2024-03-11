@@ -1,11 +1,11 @@
 import datetime
-import os.path
-
+import pandas as pd
+from utils.authentication import get_connection
 from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 import  google_auth_oauthlib.flow as Flow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+import streamlit as st
+
 
 SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
@@ -22,9 +22,13 @@ def google_authenticate(cred_file_path):
     service = build("calendar", "v3", credentials=creds)
   return service
 
-def set_reminder(service, reminder_time):
+def set_reminder(service, activity_type):
     # Call the Calendar API
     now = datetime.datetime.now()
+    act_to_interval = {"Swimming/Water Activity":1,
+                       "High Intensity Sports":1.5,
+                       "Low Intensity Sports":2}
+    reminder_time = act_to_interval[activity_type]
     reminder = now + datetime.timedelta(hours= reminder_time)
     reminder_end = reminder + datetime.timedelta(minutes= 5)
     event = {
@@ -52,7 +56,33 @@ def set_reminder(service, reminder_time):
         }
     }
     reminder_event = service.events().insert(calendarId='primary', body=event).execute()
-    return reminder_event['id']
+    return reminder_event
 
 def delete_reminders(service, id):
     service.events().delete(calendarID = 'primary', eventID = id)
+
+def display_reminder_history(email):
+    connection = get_connection()
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT date,activity  FROM reminder WHERE email = %s",(email))
+        result = cursor.fetchall()
+    connection.close()
+    if result:
+        df = pd.DataFrame(list(result), columns=['Date', 'Actvity'])
+        st.write(df)
+    else:
+       st.subheader("No Reminder History...")
+
+def start_outdoor_session(activity_type):
+    service = google_authenticate("./utils/desktop_cred.json")
+    reminder = set_reminder(service, activity_type)
+    email = reminder['creator']['email']
+    connection = get_connection()
+    with connection.cursor() as cursor:
+        cursor.execute("CREATE TABLE IF NOT EXISTS reminder (date VARCHAR(30),email VARCHAR(30),activity VARCHAR(30))")
+        cursor.execute("INSERT INTO reminder (date,email,activity) VALUES (%s,%s,%s)",(reminder['start']['dateTime'],email,activity_type))  
+    connection.commit()
+    connection.close()
+
+
+
