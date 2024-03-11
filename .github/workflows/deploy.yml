@@ -61,5 +61,5 @@ jobs:
               -e GCP_LOCAL_CLIENT_JSON=$GCP_LOCAL_CLIENT_JSON \
               -p 8501:8501 \
               --name streamlit_container streamlit:latest
-            docker exec -it streamlit_container /bin/sh -c 'echo $GCP_WEB_CLIENT_JSON > ./GCP_WEB_CLIENT.json'
-            docker exec -it streamlit_container /bin/sh -c 'echo $GCP_LOCAL_CLIENT_JSON > ./GCP_LOCAL_CLIENT.json'
+            docker exec -i streamlit_container /bin/sh -c 'echo $GCP_WEB_CLIENT_JSON > ./GCP_WEB_CLIENT.json'
+            docker exec -i streamlit_container /bin/sh -c 'echo $GCP_LOCAL_CLIENT_JSON > ./GCP_LOCAL_CLIENT.json'
