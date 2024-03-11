@@ -27,26 +27,6 @@ jobs:
         with:
           app-path: app.py
 
-      - name: create-json
-        id: create-json1
-        uses: jsdaniell/create-json@v1.2.3
-        with:
-          host: ${{ secrets.AZURE_HOST }}
-          username: ${{ secrets.AZURE_USERNAME }}
-          key: ${{ secrets.AZURE_VM_SSH_KEY }}
-          name: "GCP_WEB_CLIENT.json"
-          json: ${{ secrets.GCP_WEB_CLIENT_JSON}}
-
-      - name: create-json
-        id: create-json2
-        uses: jsdaniell/create-json@v1.2.3
-        with:
-          host: ${{ secrets.AZURE_HOST }}
-          username: ${{ secrets.AZURE_USERNAME }}
-          key: ${{ secrets.AZURE_VM_SSH_KEY }}
-          name: "GCP_LOCAL_CLIENT.json"
-          json: ${{ secrets.GCP_LOCAL_CLIENT_JSON}}
-
       - name: Copy files via ssh and deploy latest
         uses: appleboy/ssh-action@v1.0.3
         env:
@@ -55,11 +35,13 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          GCP_WEB_CLIENT_JSON: ${{ secrets.GCP_WEB_CLIENT_JSON }}
+          GCP_LOCAL_CLIENT_JSON: ${{ secrets.GCP_LOCAL_CLIENT_JSON }}
         with:
           host: ${{ secrets.AZURE_HOST }}
           username: ${{ secrets.AZURE_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
-          envs: DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, WEATHER_API_KEY
+          envs: DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, WEATHER_API_KEY, GCP_WEB_CLIENT_JSON, GCP_LOCAL_CLIENT_JSON
           script: |
             container_exists=$(docker ps -a --filter "name=streamlit_container" --format '{{.Names}}')
             if [ ! -z "$container_exists" ]; then
@@ -75,5 +57,9 @@ jobs:
               -e DB_PASSWORD=$DB_PASSWORD \
               -e DB_DATABASE=$DB_DATABASE \
               -e WEATHER_API_KEY=$WEATHER_API_KEY \
+              -e GCP_WEB_CLIENT_JSON=$GCP_WEB_CLIENT_JSON \
+              -e GCP_LOCAL_CLIENT_JSON=$GCP_LOCAL_CLIENT_JSON \
               -p 8501:8501 \
               --name streamlit_container streamlit:latest
+            docker exec -i streamlit_container /bin/sh -c 'echo $GCP_WEB_CLIENT_JSON > ./GCP_WEB_CLIENT.json'
+            docker exec -i streamlit_container /bin/sh -c 'echo $GCP_LOCAL_CLIENT_JSON > ./GCP_LOCAL_CLIENT.json'

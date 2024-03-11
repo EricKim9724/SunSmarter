@@ -12,24 +12,17 @@ SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
 
 def google_authenticate():
-  creds = None
-  if not creds or not creds.valid:
-    if creds and creds.expired and creds.refresh_token:
-      creds.refresh(Request())
-    else:
-        try:
+    creds = None
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
             flow = Flow.InstalledAppFlow.from_client_secrets_file(
-                cred_file_path, SCOPES        
+                cred_file_path, SCOPES
             )
             creds = flow.run_local_server(port=0)
-        except:
-            cred_file_path = "./GCP_LOCAL_CLIENT.json"
-            low = Flow.InstalledAppFlow.from_client_secrets_file(
-                cred_file_path, SCOPES        
-            )
-            creds = flow.run_local_server(port=0)
-    service = build("calendar", "v3", credentials=creds)
-  return service
+        service = build("calendar", "v3", credentials=creds)
+    return service
 
 
 def set_reminder(service, activity_type):
@@ -97,7 +90,3 @@ def start_outdoor_session(activity_type):
         )
     connection.commit()
     connection.close()
-    return email
-
-
-
