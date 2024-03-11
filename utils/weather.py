@@ -4,10 +4,6 @@ import requests
 import streamlit as st
 import pandas as pd
 
-
-from dotenv import load_dotenv
-load_dotenv()
-
 def search_location(location):
     connection = get_connection()
     try:
@@ -67,4 +63,5 @@ def weather_display_ui(location, state, weather_data):
             hourly_forecast['Time'] = pd.to_datetime(hourly_forecast['dt'] + weather_data[2],unit='s', utc= True) 
             st.line_chart(hourly_forecast,x='Time',y='UV Index',color = '#520160')
             st.line_chart(hourly_forecast,x='Time',y='Temperature',color = '#ffa500')
+
 
