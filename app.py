@@ -68,6 +68,7 @@ else:
     # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab1:
         padding = st.container(height=20, border=False)
+        st.session_state.user_email = " "
         t1_col1, t1_col2 = st.columns(2)
 
         # UV Map
@@ -101,10 +102,11 @@ else:
                     st.write("Please Select an Activity First")
                 else:
                     if st.toggle("Get Reminders: Outdoor Session"):
-                        reminder.start_outdoor_session(activity_type)
+                        st.session_state.user_email = reminder.start_outdoor_session(activity_type)
+
             with sub_col2:
                 with st.popover(":clipboard: Reminder History"):
-                    reminder.display_reminder_history("ericmhkim0204@gmail.com")
+                    reminder.display_reminder_history(st.session_state.user_email)
 
             # Adjustable Slider for Recommendations
             st.subheader("UV Index")

@@ -7,9 +7,10 @@ from googleapiclient.discovery import build
 import streamlit as st
 
 
+cred_file_path = "./GCP_WEB_CLIENT.json"
 SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
-def google_authenticate(cred_file_path):
+def google_authenticate():
   creds = None
   if not creds or not creds.valid:
     if creds and creds.expired and creds.refresh_token:
@@ -74,7 +75,7 @@ def display_reminder_history(email):
        st.subheader("No Reminder History...")
 
 def start_outdoor_session(activity_type):
-    service = google_authenticate("./utils/desktop_cred.json")
+    service = google_authenticate()
     reminder = set_reminder(service, activity_type)
     email = reminder['creator']['email']
     connection = get_connection()
