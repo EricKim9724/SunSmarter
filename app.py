@@ -223,52 +223,183 @@ else:
             padding = st.container(height=20, border=False)
             t3_col1, t3_col2, t3_col3 = st.columns(3)
 
-            # Cancer Risk Info
+            # Dangers of Sun Exposure
             with t3_col1:
-                st.subheader("Dangers of Sun Exposure", divider="red")
-                st.write(
-                    "There is well established evidence that exposure to ultraviolet radiation (UVR) from the sun can lead to skin cancer and eye damage. For best protection use a combination of sun protection measures."
-                )
-                st.write(
-                    "Australia has one of the highest rates of skin cancer in the world. At least two in three Australians will be diagnosed with skin cancer by the age of 70. The major cause of skin cancer is exposure to ultraviolet (UV) radiation from the sun."
-                )
-                st.write(
-                    "Fortunately, UV induced skin cancer is almost entirely preventable and high profile awareness and information campaigns telling Australians how to save their skin have been in place for several decades."
-                )
-                st.markdown(
-                    """[Prevention policy](https://www.cancer.org.au/about-us/policy-and-advocacy/prevention-policy).""",
-                    unsafe_allow_html=False,
-                )
-                st.markdown(
-                    """[National Cancer Care Policy](https://www.cancer.org.au/about-us/policy-and-advocacy/national-cancer-care-policy).""",
-                    unsafe_allow_html=False,
-                )
-                st.markdown(
-                    """[Early detection policy](https://www.cancer.org.au/about-us/policy-and-advocacy/early-detection-policy).""",
-                    unsafe_allow_html=False,
-                )
-                st.markdown(
-                    """[Private ownership and use of solariums in Australia](https://www.cancer.org.au/about-us/policy-and-advocacy/position-statements/uv/private-solariums).""",
-                    unsafe_allow_html=False,
-                )
+                st.header("Dangers of Sun Exposure", divider="red")
+                st.subheader("Skin cancer")
+                skincancer_text1 = '''
+                #### About skin cancer
 
-            # Sun Safety Practices
+                Skin cancer can hide in plain sight and in places we might not expect.
+
+                UV radiation causes damage to the skin cells DNA and can mutate into cancer that can spread to different parts of your body, such as the liver, lung and brain. In rare cases skin cancer can become deadly within six weeks.
+
+                Although we can’t feel or see UV radiation, we can see UV damage to our skin as it changes colour –- which could be red from sunburn or what people often call a ‘tan’. At any time, skin cancer signs will also become visible, in the form of new spots, changes in colour or shape of existing spots.
+
+                '''
+                st.markdown(skincancer_text1)
+
+                st.image("./assets/skincancer.png")
+
+                skincancer_text2 = '''
+                #### Know your skin
+
+                More than 70% of skin cancers are diagnosed by people other than health professionals. As you can see and are familiar with your skin, you are more likely to detect skin cancer. That’s why it’s important to get to know your skin and check it regularly.
+
+                If you detect or notice changes to your skin, and see your doctor at an earlier, more easily treatable stage, you can enjoy more of what life has the offer.
+                
+                #### What is skin cancer?
+
+                Skin cancer is the uncontrolled growth of abnormal cells in the skin. 
+
+                The three main types of skin cancer are basal cell carcinoma (BCC), squamous cell carcinoma (SCC) and melanoma. BCC and SCC are also called non-melanoma skin cancer or keratinocyte cancer, while they are more common than melanoma treatment for any type of skin cancer can be painful, leading to ongoing treatment requirements and life-long surveillance.
+                '''
+                st.markdown(skincancer_text2)
+
+                st.image("./assets/melanoma.png")
+
+                skincancer_text3 = '''
+                #### What causes skin cancer?
+
+                More than 95% of skin cancers are caused by exposure to UV radiation.
+
+                UV radiation most often comes from the sun, but it can also come from artificial sources, such as arc welders, glue curing lights for artificial nails, and solariums.
+
+                Solariums are now banned for commercial use in Australia as research shows that people who use solariums have a much greater risk of developing skin cancer.
+
+                #### Skin cancer statistics
+
+                - More than two in three Australians will be diagnosed with skin cancer in their lifetime.1
+                - About 2,000 Australians die from skin cancer each year.2
+                - Australia has one of the highest rates of skin cancer in the world.3
+                - Medicare records show there were over a million treatments for squamous and basal cell carcinoma skin cancers in 2018 – that’s more than 100 skin cancer treatments every hour.
+                - Basal and squamous cell carcinoma skin cancers accounted for one quarter of all cancer-related hospitalisations in 2014–15.4 The cost to the health system of these skin cancers alone is estimated to be more than $700 million annually. The costs to the Federal Government and the community from basal and squamous cell carcinomas are predicted to continue to increase in the future.5
+                - In 2021, 2,824 Victorians were diagnosed with melanoma and 291 lost their lives.6
+                - It is estimated that approximately 200 melanomas and 34,000 other skin cancer types per year are caused by occupational exposures in Australia.
+                '''
+                st.markdown(skincancer_text3)
+
+
+            # UV Index & SPF
             with t3_col2:
-                st.subheader("Staying Sun Safe", divider="orange")
-                st.write(
-                    "Overexposure to ultraviolet (UV) light causes 95% of melanomas. The best way to prevent melanoma is to protect your skin from the sun by following the 5 Sun Safe Rules:"
-                )
-                st.image("./assets/5 Sun Safe Rules.png")
+                st.header("UV Index & SPF", divider="orange")
+                uv_index_text1 = '''
+                #### What is UV radiation?
 
-            # Sun Protection for Kids
+                Ultraviolet (UV) radiation is the invisible killer that you can't see or feel. UV radiation can be high even on cool and overcast days. This means you can't rely on clear skies or high temperatures to determine when you need to protect yourself from the sun
+                UV is a form of energy produced by the sun. The sun produces different types of energy:
+
+                - Visible light – which we can see as sunlight.
+                - Infrared radiation – which we feel as heat.
+                - UV radiation – which we cannot see or feel.
+
+                UV radiation is often confused with infrared radiation. The temperature, however, does not affect UV radiation levels. UV radiation can be just as high on a cool or even cold day as it is on a hot one, especially if skies are clear. Thick cloud provides a good filter, but UV radiation can penetrate thin cloud cover. And while UV radiation is higher in summer than in winter, it is still present every day of the year.
+                
+                There are three types of UV radiation, categorised by wavelength: UVA, UVB and UVC.
+
+                - UVA can cause sunburn, DNA (cell) damage in the skin and skin cancer.
+                - UVB causes skin damage and skin cancer. Ozone stops most UVB from reaching the earth’s surface, about 15% is transmitted.
+                - UVC is the most dangerous type of UV. Ozone in the atmosphere absorbs all UVC and it does not reach the earth’s surface.
+                
+                UV levels are affected by a number of factors including geographic location, altitude, time of day, time of year and cloud cover. This means that UV levels are higher in some parts of Australia than others even on the same day.
+                '''
+
+                st.markdown(uv_index_text1)
+
+                uv_index_text2 = '''
+                #### What is the UV Index?
+
+                The UV Index is a tool you can use to protect yourself from UV radiation. It tells you the times during the day that you need to be SunSmart.
+
+                The UV Index divides UV radiation levels into:
+
+                - low (1-2)
+                - moderate (3-5)
+                - high (6-7)
+                - very high (8-10)
+                - extreme (11 and above).
+                
+                Sun protection times are issued by the Bureau of Meteorology when the UV Index is forecast to reach 3 or above. At that level, it can damage your skin and lead to skin cancer. Sunscreen should be incorporated into your daily routine on these days.
+                '''
+
+                st.markdown(uv_index_text2)
+
+                uv_index_text3 = '''
+                #### When should I use the UV Index?
+
+                Look or listen for the UV Index when you are:
+
+                - planning or participating in an outdoor activity or event
+                - undertaking recreational activities such as running, swimming, cycling or team sports
+                - watching a spectator sport, such as tennis or cricket
+                - working outdoors, or have responsibility for outdoor workers, or
+                - responsible for young children and their outdoor activities.
+
+                If sun protection times have been issued, you need to protect yourself during the times indicated.
+                '''
+
+                st.markdown(uv_index_text3)
+
+                st.image("./assets/spf.png")
+
+                spf_text1 = '''
+                #### What is SPF?
+
+                Sun Protection Factor(SPF) is a measure of how well a sunscreen will protect skin from UVB rays, the kind of radiation that causes sunburn, damages skin, and can contribute to skin cancer.
+
+                The SPF (Sun Protection Factor) scale is not linear:
+
+                - SPF 15 blocks 93% of UVB rays
+                - SPF 30 blocks 97% of UVB rays
+                - SPF 50 blocks 98% of UVB rays
+                
+                So, one way of looking at this is that SPF 30 sunscreen only gives you 4% more protection than SPF 15 sunscreen. Or:
+
+                - SPF 15 (93% protection) allows 7 out of 100 photons through
+                - SPF 30 (97% protection) allows 3 out of 100 photons through.
+
+                So, while you may not be doubling your level of protection, an SPF 30 will block half the radiation that an SPF 15 would let through to your skin. It’s complicated, but to keep it simple, most dermatologists recommend using a SPF 30 or higher.
+                '''
+                st.markdown(spf_text1)
+
+            # Sun Safety for Kids
             with t3_col3:
-                st.subheader("Sun Safety for Kids", divider="rainbow")
-                st.write(
-                    "Babies and children are at particular risk of sunburn and skin damage because of their delicate skin. Exposure to UV radiation during the first 15 years of life greatly increases the risk of developing skin cancer later in life."
-                )
-                st.write(
-                    "Your child's sensitive skin is especially vulnerable to UV radiation. Cancer Council NSW recommends that children under the age of 12 months are not exposed to direct sunlight when UV levels are 3 and above. You can check your local UV levels and the recommended sun protection times (when UV levels are 3 and above) using the free SunSmart app or weather section of most newspapers."
-                )
-                st.image("./assets/sun safety for kids 1.png")
-                st.image("./assets/sun safety for kids 2.png")
+                st.header("Sun Safety for Kids", divider="rainbow")
+                sp_kids_text1 = '''
+                Babies and children are at particular risk of sunburn and skin damage because of their delicate skin. Exposure to UV radiation during the first 15 years of life greatly increases the risk of developing skin cancer later in life.
+
+                Your child's sensitive skin is especially vulnerable to UV radiation. Cancer Council NSW recommends that children under the age of 12 months are not exposed to direct sunlight when UV levels are 3 and above. You can check your local UV levels and the recommended sun protection times (when UV levels are 3 and above) using the free SunSmart app or weather section of most newspapers.
+
+                '''
+
+                st.markdown(sp_kids_text1)
+
+                st.image("./assets/kids.png")
+
+                sp_kids_text2 = '''
+                #### Protect your child’s skin by:
+
+                - Cover as much of your children’s skin as possible with loose-fitting clothes made from tightly-woven fabrics.
+                - Slap on a broad brim, bucket or legionnaire style hat that protects the face, ears and back of the neck. Hats are available for babies that crumple easily when they put their head down.
+                - Provide shade for prams and strollers.
+                - Plan the day’s activities to reduce your children’s exposure to the sun, especially between 10am and 2pm (11am and 3pm in daylight saving time).
+                - Stay in the shade as much as possible. Even in the shade, use other forms of sun protection to reduce exposure from reflected UV radiation from surfaces such as sand or concrete.
+                - Apply SPF30+ or higher, broad-spectrum and water-resistant sunscreen on any exposed areas of skin.
+                
+                #### Using sunscreen on babies and children
+
+                Cancer Council recommends protecting babies and children’s skin with physical barriers such as wraps, clothing, hats and using shade as much as possible. If your baby or child is going to be exposed to the sun, apply sunscreen to those small areas of skin not covered by wraps, clothing and a hat.
+                
+                Babies aged under 6 months have highly absorptive skin and the Australasian College of Dermatologist recommends minimising use of sunscreen. Always usage test any product first on a small area of your baby or child’s skin for any negative reactions and apply sunscreen to those areas of exposed skin that can’t be covered with hats and clothing. If your baby or child reacts to sunscreen, seek advice from your doctor or chemist.
+
+                #### When you’re out and about:
+
+                - Check your children often to ensure they are well protected. Adjust covers on prams and strollers to make sure babies remain shaded.
+                - Encourage your children to play in the shade. Remember even in shade, scattered or reflected UV radiation can cause skin damage.
+                - Keep children’s hats on.
+                - Reapply sunscreen every two hours or more often if wiped or washed off.
+                - Be a role model for your child and practice good sun protection behaviors yourself.
+                '''
+
+                st.markdown(sp_kids_text2)
                 st.image("./assets/sun safety for kids 3.png")
