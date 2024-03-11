@@ -7,11 +7,16 @@ import os
 # Function to establish a connection to the MySQL database
 def get_connection():
     return pymysql.connect(
-        host=os.getenv("DB_HOST"),
+        #host=os.getenv("DB_HOST"),
+        #port=3306,
+        #user=os.getenv("DB_USER"),
+        #password=os.getenv("DB_PASSWORD"),
+        #database=os.getenv("DB_NAME"),
+        host="sunsmarterdb2.mysql.database.azure.com",
         port=3306,
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
+        user="victorgoh",
+        password="Sunsmarter_123",
+        database="appdb",
     )
 
 
@@ -52,7 +57,9 @@ def authenticate_user(email, entered_password):
             result = cursor.fetchone()[0]
             if result and check_password(entered_password, result):
                 st.success(f"User '{email}' authenticated successfully!")
+                return True
             else:
                 st.error("Authentication failed. Incorrect email or password.")
+                return False
     finally:
         connection.close()

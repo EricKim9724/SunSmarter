@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import recommender
+from utils import recommender, weather
 from utils.recommender import sunscreen_recommend
 from utils.authentication import authenticate_user, register_user
 
@@ -23,7 +23,8 @@ with col2:
             </p>
             """
     st.markdown(title, unsafe_allow_html=True)
-    
+
+
 # login page
 if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunSmarter")
@@ -34,6 +35,7 @@ if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
         if submit_button:
             if authenticate_user(email, password):
                 st.session_state["logged_in"] = True
+                st.write(st.session_state['logged_in'])    
                 st.experimental_rerun()
 
         register_button = st.form_submit_button("Register")
@@ -72,12 +74,12 @@ else:
         # UV Map
         with t1_col1:
             st.subheader("Search for a Location")
-            default_location = None
-            df = pd.DataFrame({"lat": [-37.91667], "lon": [145.11667]})
             text_search = st.text_input(
-                "Location", value="", label_visibility="collapsed"
+                "Location", value="Clayton", label_visibility="collapsed"
             )
-            st.map(df, zoom=11, use_container_width=False)
+            weather.display_location_weather(text_search)
+            #location_weather = weather.get_weather_data(-37.91667,145.11667)
+            #weather.weather_display_ui("Clayton",location_weather)
 
         # Recommenders
         with t1_col2:
@@ -95,13 +97,9 @@ else:
                 placeholder="Select Activity Type",
                 label_visibility="collapsed",
             )
-            sub_col1, sub_col2 = st.columns([3, 1])
-            with sub_col1:
-                st.button(
+            st.button(
                     "Start Outdoor Session", type="primary", use_container_width=True
                 )
-            with sub_col2:
-                st.toggle("Get Reminders", value=True)
 
             # Adjustable Slider for Recommendations
             st.subheader("UV Index")
