@@ -12,7 +12,7 @@ DB_DATABASE = os.getenv("DB_DATABASE")
 # Function to establish a connection to the MySQL database
 def get_connection():
     return pymysql.connect(
-        host=DB_HOST, port=3306, user=DB_USER, password=DB_PASSWORD, database=DB_DATABASE
+        host="sunsmarterdb2.mysql.database.azure.com", port=3306, user="victorgoh", password="Sunsmarter_tp07", database="appdb"
     )
 
 
