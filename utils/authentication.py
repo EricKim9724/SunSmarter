@@ -6,13 +6,13 @@ import os
 DB_HOST = os.getenv("DB_HOST")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_NAME = os.getenv("DB_NAME")
+DB_DATABASE = os.getenv("DB_NAME")
 
 
 # Function to establish a connection to the MySQL database
 def get_connection():
     return pymysql.connect(
-        host=DB_HOST, port=3306, user=DB_USER, password=DB_PASSWORD, database=DB_NAME
+        host=DB_HOST, port=3306, user=DB_USER, password=DB_PASSWORD, database=DB_DATABASE
     )
 
 
