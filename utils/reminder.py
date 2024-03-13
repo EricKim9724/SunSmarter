@@ -20,7 +20,11 @@ def google_authenticate():
             flow = Flow.InstalledAppFlow.from_client_secrets_file(
                 cred_file_path, SCOPES
             )
-            creds = flow.run_local_server(port=0)
+            auth_url,_ = flow.authorization_url()
+            st.page_link(auth_url, "Authorise Sunsmarter App")
+            code = st.text_input("Please enter the authorisation code:")
+            flow.fetch_token(code = code)
+            creds = flow.credentials
         service = build("calendar", "v3", credentials=creds)
     return service
 
@@ -63,16 +67,19 @@ def delete_reminders(service, id):
 
 
 def display_reminder_history(email):
-    connection = get_connection()
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT date,activity  FROM reminder WHERE email = %s", (email))
-        result = cursor.fetchall()
-    connection.close()
-    if result:
-        df = pd.DataFrame(list(result), columns=["Date", "Actvity"])
-        st.write(df)
-    else:
-        st.subheader("No Reminder History...")
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT date,activity  FROM reminder WHERE email = %s", (email))
+            result = cursor.fetchall()
+        connection.close()
+        if result:
+            df = pd.DataFrame(list(result), columns=["Date", "Actvity"])
+            st.write(df)
+        else:
+            st.subheader("No Reminder History...")
+    except:
+        st.write("DB")
 
 
 def start_outdoor_session(activity_type):
