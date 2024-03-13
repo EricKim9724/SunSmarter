@@ -22,11 +22,7 @@ def search_location(location):
 
 
 def get_weather_data(lat, lon):
-    try:
-        api_key = os.getenv("WEATHER_API_KEY")
-    except Exception as e:
-        print(f"Error getting api key: {e}")
-        return None
+    api_key = os.getenv("WEATHER_API_KEY")
     request_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={api_key}"
     try:
         response = requests.get(request_url)
@@ -41,7 +37,7 @@ def get_weather_data(lat, lon):
         return None
 
 
-def display_location_weather(location, demo):
+def display_location_weather(location):
     search = search_location(location)
     if search == None:
         st.write(
@@ -58,24 +54,23 @@ def display_location_weather(location, demo):
         location_found = search[0]
     lat, lon = location_found[-2], location_found[-1]
     weather = get_weather_data(lat, lon)
-    weather_display_ui(location_found[2], location_found[3], weather, demo)
+    weather_display_ui(location_found[2], location_found[3], weather)
 
 
-def weather_display_ui(location, state, weather_data, demo):
+def weather_display_ui(location, state, weather_data):
     with st.container(border=True):
         st.subheader(f"**Currently in {location}({state})**", divider="rainbow")
         col1, col2, col3 = st.columns(3)
         col1.metric("UV Index", f"{weather_data[0][1]}")
         col2.metric("Temperature", f"{weather_data[0][2]} °C")
         col3.metric("Weather", f"{weather_data[0][3]}")
-        if not demo:
-            with st.expander("Forecast", True):
-                hourly_forecast = weather_data[1]
-                hourly_forecast["UV Index"] = hourly_forecast["uvi"]
-                hourly_forecast["Temperature"] = hourly_forecast["temp"]
-                hourly_forecast["Time"] = pd.to_datetime(
-                    hourly_forecast["dt"] + weather_data[2], unit="s", utc=True
-                )
-                st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
-                st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
+        with st.expander("Forecast", True):
+            hourly_forecast = weather_data[1]
+            hourly_forecast["UV Index"] = hourly_forecast["uvi"]
+            hourly_forecast["Temperature"] = hourly_forecast["temp"]
+            hourly_forecast["Time"] = pd.to_datetime(
+                hourly_forecast["dt"] + weather_data[2], unit="s", utc=True
+            )
+            st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
+            st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
 

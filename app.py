@@ -177,10 +177,10 @@ else:
                      """
                 st.markdown(text, unsafe_allow_html=True)
             with col_searchabar:
-                text_search = st.text_input(
-                    "Location", value="Clayton", label_visibility="collapsed", key = "demo"
+                text_search_1 = st.text_input(
+                    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
                 )
-            weather.display_location_weather(text_search, demo=False)
+            weather.display_location_weather(text_search_1)
             
         with home_col2:
             st.image("./assets/home_2.png",use_column_width=True)
@@ -201,10 +201,10 @@ else:
         # UV Map
         with t1_col1:
             st.subheader("Search for a Location")
-            text_search = st.text_input(
-                "Location", value="Clayton", label_visibility="collapsed"
+            text_search_2 = st.text_input(
+                "Location", value="Clayton", label_visibility="collapsed", key= "full"
             )
-            weather.display_location_weather(text_search,True)
+            weather.display_location_weather(text_search_2)
 
         # Recommenders
         with t1_col2:
