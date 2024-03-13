@@ -204,7 +204,7 @@ else:
             text_search_2 = st.text_input(
                 "Location", value="Clayton", label_visibility="collapsed", key= "full"
             )
-            weather.display_location_weather(text_search_2)
+            #weather.display_location_weather(text_search_2)
 
         # Recommenders
         with t1_col2:
