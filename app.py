@@ -180,7 +180,7 @@ else:
                 text_search_1 = st.text_input(
                     "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
                 )
-            weather.display_location_weather(text_search_1)
+            #weather.display_location_weather(text_search_1)
             
         with home_col2:
             st.image("./assets/home_2.png",use_column_width=True)
