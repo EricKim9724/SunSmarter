@@ -1,8 +1,17 @@
-from utils.authentication import get_connection
 import os
 import requests
 import streamlit as st
 import pandas as pd
+import pymysql
+
+def get_connection():
+    return pymysql.connect(
+        host=os.getenv("DB_HOST"),
+        port=3306,
+        user=os.getenv("DB_USER"),  
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_DATABASE"),
+    )
 
 def search_location(location):
     connection = get_connection()
@@ -59,7 +68,7 @@ def display_location_weather(location):
 
 def weather_display_ui(location, state, weather_data):
     with st.container(border=True):
-        st.subheader(f"**Currently in {location}({state})**", divider="rainbow")
+        st.subheader(f"**{location}**({state})", divider="rainbow")
         col1, col2, col3 = st.columns(3)
         col1.metric("UV Index", f"{weather_data[0][1]}")
         col2.metric("Temperature", f"{weather_data[0][2]} °C")
