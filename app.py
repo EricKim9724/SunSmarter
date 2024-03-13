@@ -15,19 +15,15 @@ with col1:
 
 with col2:
     title = """
-            <p style="font-family:Helvetica; color:orange; font-size: 66px;">
-                <b>SunShieldAdvisor</b>
-                <span style= "font-family:Calibri; color:gray; font-size: 18px;">
-                    Your Shield From UV Harm
-                </span>
+            <p style="font-family:recoleta-web; color:#393939; font-size: 4em;text-align: center">
+                SunShield Advisor
             </p>
             """
     st.markdown(title, unsafe_allow_html=True)
 
 
 # login page
-# login page (Temporarily Disabled)
-if False: #"logged_in" not in st.session_state or not st.session_state["logged_in"]:
+if False:#"logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunShieldAdvisor")
     with st.form("Login Form"):
         email = st.text_input("Email")
@@ -46,11 +42,10 @@ if False: #"logged_in" not in st.session_state or not st.session_state["logged_i
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
-        " :house: Home ",
-        " :wrench: UV Tools",
-        " :book: UV Impacts Handbook",
+        ":world_map: UV Map",
+        ":orange_book: UV Impacts Handbook",
     ]
-    home, tab1, tab3 = st.tabs(tab_names)
+    tab1, tab3 = st.tabs(tab_names)
     css = """
     <style>
         .stTabs [data-baseweb="tab-list"] {
@@ -59,56 +54,13 @@ else:
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:1.5em;
-        font-family:recoleta-web;
+        font-size:18px;
+        font-weight: bold;
         }
     </style>
     """
 
     st.markdown(css, unsafe_allow_html=True)
-
-    with home:
-        padding = st.container(height=10, border=False)
-        home_img, text_col = st.columns([3, 1.5],gap="medium")
-        with home_img:
-            st.image("./assets/home.png",use_column_width=True)
-            credit = """
-            <p style="font-family:recoleta-web; color: gray; font-size: 0.8em;text-align: center">
-                By Anna Tarazevich via https://www.pexels.com/photo/shirtless-man-with-sunscreen-7466770/
-            </p>
-            """
-            st.markdown(credit, unsafe_allow_html=True)
-        with text_col:
-            padding2 = st.container(height=15, border=False)
-            st.divider()
-            body3 = """
-            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 3rem;text-align: center">
-                Stay Sun-Safe
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.5rem;text-align: center">
-                with Sun Shield Advisor 
-            </p>
-            """
-            st.markdown(body3, unsafe_allow_html=True)
-            st.divider()
-            padding2 = st.container(height=3, border=False)
-            col1, col2, col3 = st.columns(3)
-            col1.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Live UV & Weather Updates by Location
-            </p>
-            """, unsafe_allow_html=True)
-            col2.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Clothing & Sunscreen Recommenders
-            </p>
-            """, unsafe_allow_html=True)
-            col3.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Google Calendar Sunscreen Reminders
-            </p>
-            """, unsafe_allow_html=True)
-            st.divider()
 
     # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab1:
@@ -123,6 +75,8 @@ else:
                 "Location", value="Clayton", label_visibility="collapsed"
             )
             weather.display_location_weather(text_search)
+            # location_weather = weather.get_weather_data(-37.91667,145.11667)
+            # weather.weather_display_ui("Clayton",location_weather)
 
         # Recommenders
         with t1_col2:
