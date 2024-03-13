@@ -136,18 +136,18 @@ else:
             st.markdown(body4, unsafe_allow_html=True)
             st.divider()
             padding2 = st.container(height=3, border=False)
-            col1, col2, col3 = st.columns(3)
-            col1.markdown("""
+            col_1, col_2, col_3 = st.columns(3)
+            col_1.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Live UV & Weather Updates by Location
             </p>
             """, unsafe_allow_html=True)
-            col2.markdown("""
+            col_2.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Clothing & Sunscreen Recommenders
             </p>
             """, unsafe_allow_html=True)
-            col3.markdown("""
+            col_3.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Google Calendar Sunscreen Reminders
             </p>
@@ -155,7 +155,7 @@ else:
             st.divider()
 
     # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
-    with tab2:
+    with tab1:
         padding = st.container(height=20, border=False)
         st.session_state.user_email = " "
         t1_col1, t1_col2 = st.columns(2)
