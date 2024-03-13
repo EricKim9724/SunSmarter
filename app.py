@@ -25,6 +25,7 @@ with col2:
     st.markdown(title, unsafe_allow_html=True)
 
 
+# login page
 # login page (Temporarily Disabled)
 if False: #"logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunShieldAdvisor")
@@ -49,7 +50,7 @@ else:
         " :wrench: UV Tools",
         " :book: UV Impacts Handbook",
     ]
-    tab1, tab2, tab3 = st.tabs(tab_names)
+    home, tab1, tab3 = st.tabs(tab_names)
     css = """
     <style>
         .stTabs [data-baseweb="tab-list"] {
@@ -66,7 +67,7 @@ else:
 
     st.markdown(css, unsafe_allow_html=True)
 
-    with tab1:
+    with home:
         padding = st.container(height=10, border=False)
         home_img, text_col = st.columns([3, 1.5],gap="medium")
         with home_img:
@@ -79,75 +80,30 @@ else:
             st.markdown(credit, unsafe_allow_html=True)
         with text_col:
             padding2 = st.container(height=15, border=False)
-            body1 = """
-     
-            <p style="font-family:recoleta-web; color: #393939; font-size: 2em;font-style: italic;text-align: center;font-weight: bold">
-                Did you know?
-            </p>
-            """
-            st.markdown(body1, unsafe_allow_html=True)
-            padding2 = st.container(height=5, border=False)
-            body2 = """
-            <style>
-                span{
-                    font-weight: bold;
-                    font-size: 1.2em;
-                }
-            </style>
-            <p style="font-family:recoleta-web; color: #525252; font-size: 1.4rem;text-align: center;">
-                Just <span>ONE</span> severe sunburn in childhood
-            </p>
-            <p style="font-family:recoleta-web; color: #FF4B4B; font-size: 4.2rem; font-weight: bold; text-align: center;font-style: italic">
-                DOUBLES
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem; text-align: center;">
-                likelihood of getting  <span>Skin Cancer</span>
-            </p>
-            """
-            st.markdown(body2, unsafe_allow_html=True)
-            padding2 = st.container(height=5, border=False)
             st.divider()
             body3 = """
-            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2.2rem;text-align: center">
+            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 3rem;text-align: center">
                 Stay Sun-Safe
             </p>
             <p style="font-family:recoleta-web; color: #393939; font-size: 1.5rem;text-align: center">
                 with Sun Shield Advisor 
             </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
-                Scroll down to find out more
-            </p>
             """
             st.markdown(body3, unsafe_allow_html=True)
             st.divider()
-            padding2 = st.container(height=10, border=False)
-
-        padding2 = st.container(height=25, border=False)
-        home_col1,home_col2 = st.columns([1.6,3], gap = "medium")
-        with home_col1:
-            body4 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 2.2rem;font-weight: bold;text-align: center">
-                Stay Protected Anywhere
-            </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;font-weight: italic;text-align: center">
-                with our features like:
-            </p>
-            """
-            st.markdown(body4, unsafe_allow_html=True)
-            st.divider()
             padding2 = st.container(height=3, border=False)
-            col_1, col_2, col_3 = st.columns(3)
-            col_1.markdown("""
+            col1, col2, col3 = st.columns(3)
+            col1.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Live UV & Weather Updates by Location
             </p>
             """, unsafe_allow_html=True)
-            col_2.markdown("""
+            col2.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Clothing & Sunscreen Recommenders
             </p>
             """, unsafe_allow_html=True)
-            col_3.markdown("""
+            col3.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Google Calendar Sunscreen Reminders
             </p>
@@ -167,8 +123,6 @@ else:
                 "Location", value="Clayton", label_visibility="collapsed"
             )
             weather.display_location_weather(text_search)
-            # location_weather = weather.get_weather_data(-37.91667,145.11667)
-            # weather.weather_display_ui("Clayton",location_weather)
 
         # Recommenders
         with t1_col2:
