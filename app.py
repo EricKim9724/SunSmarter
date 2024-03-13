@@ -25,8 +25,8 @@ with col2:
     st.markdown(title, unsafe_allow_html=True)
 
 
-# login page
-if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
+# login page (Temporarily Disabled)
+if False: #"logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunShieldAdvisor")
     with st.form("Login Form"):
         email = st.text_input("Email")
@@ -45,10 +45,11 @@ if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
-        ":world_map: UV Map",
-        ":orange_book: UV Impacts Handbook",
+        " :house: Home ",
+        " :wrench: UV Tools",
+        " :book: UV Impacts Handbook",
     ]
-    tab1, tab3 = st.tabs(tab_names)
+    tab1, tab2, tab3 = st.tabs(tab_names)
     css = """
     <style>
         .stTabs [data-baseweb="tab-list"] {
@@ -57,16 +58,104 @@ else:
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:18px;
-        font-weight: bold;
+        font-size:1.5em;
+        font-family:recoleta-web;
         }
     </style>
     """
 
     st.markdown(css, unsafe_allow_html=True)
 
-    # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab1:
+        padding = st.container(height=10, border=False)
+        home_img, text_col = st.columns([3, 1.5],gap="medium")
+        with home_img:
+            st.image("./assets/home.png",use_column_width=True)
+            credit = """
+            <p style="font-family:recoleta-web; color: gray; font-size: 0.8em;text-align: center">
+                By Anna Tarazevich via https://www.pexels.com/photo/shirtless-man-with-sunscreen-7466770/
+            </p>
+            """
+            st.markdown(credit, unsafe_allow_html=True)
+        with text_col:
+            padding2 = st.container(height=15, border=False)
+            body1 = """
+     
+            <p style="font-family:recoleta-web; color: #393939; font-size: 2em;font-style: italic;text-align: center;font-weight: bold">
+                Did you know?
+            </p>
+            """
+            st.markdown(body1, unsafe_allow_html=True)
+            padding2 = st.container(height=5, border=False)
+            body2 = """
+            <style>
+                span{
+                    font-weight: bold;
+                    font-size: 1.2em;
+                }
+            </style>
+            <p style="font-family:recoleta-web; color: #525252; font-size: 1.4rem;text-align: center;">
+                Just <span>ONE</span> severe sunburn in childhood
+            </p>
+            <p style="font-family:recoleta-web; color: #FF4B4B; font-size: 4.2rem; font-weight: bold; text-align: center;font-style: italic">
+                DOUBLES
+            </p>
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem; text-align: center;">
+                likelihood of getting  <span>Skin Cancer</span>
+            </p>
+            """
+            st.markdown(body2, unsafe_allow_html=True)
+            padding2 = st.container(height=5, border=False)
+            st.divider()
+            body3 = """
+            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2.2rem;text-align: center">
+                Stay Sun-Safe
+            </p>
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1.5rem;text-align: center">
+                with Sun Shield Advisor 
+            </p>
+            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
+                Scroll down to find out more
+            </p>
+            """
+            st.markdown(body3, unsafe_allow_html=True)
+            st.divider()
+            padding2 = st.container(height=10, border=False)
+
+        padding2 = st.container(height=25, border=False)
+        home_col1,home_col2 = st.columns([1.6,3], gap = "medium")
+        with home_col1:
+            body4 = """
+            <p style="font-family:recoleta-web; color: #393939; font-size: 2.2rem;font-weight: bold;text-align: center">
+                Stay Protected Anywhere
+            </p>
+            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;font-weight: italic;text-align: center">
+                with our features like:
+            </p>
+            """
+            st.markdown(body4, unsafe_allow_html=True)
+            st.divider()
+            padding2 = st.container(height=3, border=False)
+            col1, col2, col3 = st.columns(3)
+            col1.markdown("""
+            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
+                Live UV & Weather Updates by Location
+            </p>
+            """, unsafe_allow_html=True)
+            col2.markdown("""
+            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
+                Clothing & Sunscreen Recommenders
+            </p>
+            """, unsafe_allow_html=True)
+            col3.markdown("""
+            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
+                Google Calendar Sunscreen Reminders
+            </p>
+            """, unsafe_allow_html=True)
+            st.divider()
+
+    # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
+    with tab2:
         padding = st.container(height=20, border=False)
         st.session_state.user_email = " "
         t1_col1, t1_col2 = st.columns(2)
