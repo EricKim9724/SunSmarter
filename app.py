@@ -5,43 +5,28 @@ from utils.recommender import sunscreen_recommend
 from utils.authentication import authenticate_user, register_user
 
 # Sets the page configuration to wide by default
-st.set_page_config(
-    layout="wide",
-    page_title="Sun Shield Advisor",
-    page_icon=":sun_with_face:")
-
-st.markdown("""
-    <style>
-        .reportview-container {
-            margin-top: -2em;
-        }
-        #MainMenu {visibility: hidden;}
-        .stDeployButton {display:none;}
-        footer {visibility: hidden;}
-        #stDecoration {display:none;}
-    </style>
-""", unsafe_allow_html=True)
+st.set_page_config(layout="wide")
 
 # Logo, Title
-col1, col2 = st.columns([0.1, 10])
+col1, col2 = st.columns([1.5, 10])
 
 with col1:
-    st.image("./assets/logo.png", width=96)
+    st.image("./assets/logo.png", width=128)
 
 with col2:
     title = """
-            <p style="font-family:recoleta-web; color: black; font-size: 4.5em;text-align: center;">
-                SunShield Advisor
-            </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1.2em;text-align: center;">
-                Your shield from UV Harm
+            <p style="font-family:Helvetica; color:orange; font-size: 66px;">
+                <b>SunShieldAdvisor</b>
+                <span style= "font-family:Calibri; color:gray; font-size: 18px;">
+                    Your Shield From UV Harm
+                </span>
             </p>
             """
     st.markdown(title, unsafe_allow_html=True)
 
 
-# login page (Temporarily Disabled)
-if False: #"logged_in" not in st.session_state or not st.session_state["logged_in"]:
+# login page
+if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
     st.title("Login to SunShieldAdvisor")
     with st.form("Login Form"):
         email = st.text_input("Email")
@@ -60,11 +45,10 @@ if False: #"logged_in" not in st.session_state or not st.session_state["logged_i
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
-        " :house: Home ",
-        " :wrench: UV Tools",
-        " :book: UV Impacts Handbook",
+        ":world_map: UV Map",
+        ":orange_book: UV Impacts Handbook",
     ]
-    tab1, tab2, tab3 = st.tabs(tab_names)
+    tab1, tab3 = st.tabs(tab_names)
     css = """
     <style>
         .stTabs [data-baseweb="tab-list"] {
@@ -73,127 +57,16 @@ else:
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:1.5em;
-        font-family:recoleta-web;
+        font-size:18px;
+        font-weight: bold;
         }
     </style>
     """
 
     st.markdown(css, unsafe_allow_html=True)
 
-    with tab1:
-        padding = st.container(height=10, border=False)
-        home_img, text_col = st.columns([3, 1.5],gap="medium")
-        with home_img:
-            st.image("./assets/home.png",use_column_width=True)
-            credit = """
-            <p style="font-family:recoleta-web; color: gray; font-size: 0.8em;text-align: center">
-                By Anna Tarazevich via https://www.pexels.com/photo/shirtless-man-with-sunscreen-7466770/
-            </p>
-            """
-            st.markdown(credit, unsafe_allow_html=True)
-        with text_col:
-            padding2 = st.container(height=15, border=False)
-            body1 = """
-     
-            <p style="font-family:recoleta-web; color: #393939; font-size: 2em;font-style: italic;text-align: center;font-weight: bold">
-                Did you know?
-            </p>
-            """
-            st.markdown(body1, unsafe_allow_html=True)
-            padding2 = st.container(height=5, border=False)
-            body2 = """
-            <style>
-                span{
-                    font-weight: bold;
-                    font-size: 1.2em;
-                }
-            </style>
-            <p style="font-family:recoleta-web; color: #525252; font-size: 1.4rem;text-align: center;">
-                Just <span>ONE</span> severe sunburn in childhood
-            </p>
-            <p style="font-family:recoleta-web; color: #FF4B4B; font-size: 4.2rem; font-weight: bold; text-align: center;font-style: italic">
-                DOUBLES
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem; text-align: center;">
-                likelihood of getting  <span>Skin Cancer</span>
-            </p>
-            """
-            st.markdown(body2, unsafe_allow_html=True)
-            padding2 = st.container(height=5, border=False)
-            st.divider()
-            body3 = """
-            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2.2rem;text-align: center">
-                Stay Sun-Safe
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.5rem;text-align: center">
-                with Sun Shield Advisor 
-            </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
-                Scroll down to find out more
-            </p>
-            """
-            st.markdown(body3, unsafe_allow_html=True)
-            st.divider()
-            padding2 = st.container(height=10, border=False)
-
-        padding2 = st.container(height=25, border=False)
-        home_col1,home_col2 = st.columns([1.6,3], gap = "medium")
-        with home_col1:
-            body4 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 2.2rem;font-weight: bold;text-align: center">
-                Stay Protected Anywhere
-            </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;font-weight: italic;text-align: center">
-                with our features like:
-            </p>
-            """
-            st.markdown(body4, unsafe_allow_html=True)
-            st.divider()
-            padding2 = st.container(height=3, border=False)
-            col1, col2, col3 = st.columns(3)
-            col1.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Live UV & Weather Updates by Location
-            </p>
-            """, unsafe_allow_html=True)
-            col2.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Clothing & Sunscreen Recommenders
-            </p>
-            """, unsafe_allow_html=True)
-            col3.markdown("""
-            <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Google Calendar Sunscreen Reminders
-            </p>
-            """, unsafe_allow_html=True)
-            st.divider()
-            col_text, col_searchabar = st.columns([1,2.5])
-            with col_text:
-                text = """
-                    <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
-                        Search for a Location (Postcode/Surburb)
-                    </p>
-                     """
-                st.markdown(text, unsafe_allow_html=True)
-            with col_searchabar:
-                text_search_1 = st.text_input(
-                    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
-                )
-            #weather.display_location_weather(text_search_1)
-            
-        with home_col2:
-            st.image("./assets/home_2.png",use_column_width=True)
-            body5 = """
-            <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
-                By Andrea Piacquadio via https://www.pexels.com/photo/cheerful-young-woman-resting-in-colorful-hammock-3771818/
-            </p>
-            """
-            st.markdown(body5, unsafe_allow_html=True)
-            
-
     # tab1 is the main page w/ 2 colummns (UV Map, Recommenders)
-    with tab2:
+    with tab1:
         padding = st.container(height=20, border=False)
         st.session_state.user_email = " "
         t1_col1, t1_col2 = st.columns(2)
@@ -201,10 +74,12 @@ else:
         # UV Map
         with t1_col1:
             st.subheader("Search for a Location")
-            text_search_2 = st.text_input(
-                "Location", value="Clayton", label_visibility="collapsed", key= "full"
+            text_search = st.text_input(
+                "Location", value="Clayton", label_visibility="collapsed"
             )
-            #weather.display_location_weather(text_search_2)
+            weather.display_location_weather(text_search)
+            # location_weather = weather.get_weather_data(-37.91667,145.11667)
+            # weather.weather_display_ui("Clayton",location_weather)
 
         # Recommenders
         with t1_col2:
