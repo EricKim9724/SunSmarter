@@ -31,7 +31,6 @@ with col2:
 # login page
 if False:
     pass
-
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
