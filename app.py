@@ -180,7 +180,7 @@ else:
                 text_search = st.text_input(
                     "Location", value="Clayton", label_visibility="collapsed", key = "demo"
                 )
-            weather.display_location_weather(text_search, True)
+            weather.display_location_weather(text_search, demo=False)
             
         with home_col2:
             st.image("./assets/home_2.png",use_column_width=True)
@@ -204,7 +204,7 @@ else:
             text_search = st.text_input(
                 "Location", value="Clayton", label_visibility="collapsed"
             )
-            weather.display_location_weather(text_search)
+            weather.display_location_weather(text_search,True)
 
         # Recommenders
         with t1_col2:
