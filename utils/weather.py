@@ -4,7 +4,6 @@ import requests
 import streamlit as st
 import pandas as pd
 
-
 def search_location(location):
     connection = get_connection()
     try:
@@ -23,7 +22,11 @@ def search_location(location):
 
 
 def get_weather_data(lat, lon):
-    api_key = os.getenv("WEATHER_API_KEY")
+    try:
+        api_key = os.getenv("WEATHER_API_KEY")
+    except Exception as e:
+        print(f"Error getting api key: {e}")
+        return None
     request_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&units=metric&appid={api_key}"
     try:
         response = requests.get(request_url)
@@ -60,7 +63,7 @@ def display_location_weather(location, demo):
 
 def weather_display_ui(location, state, weather_data, demo):
     with st.container(border=True):
-        st.subheader(f"**{location}**({state})", divider="rainbow")
+        st.subheader(f"**Currently in {location}({state})**", divider="rainbow")
         col1, col2, col3 = st.columns(3)
         col1.metric("UV Index", f"{weather_data[0][1]}")
         col2.metric("Temperature", f"{weather_data[0][2]} °C")

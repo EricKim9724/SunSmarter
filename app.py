@@ -183,7 +183,6 @@ else:
             weather.display_location_weather(text_search, True)
             
         with home_col2:
-            #https://www.pexels.com/photo/cheerful-young-woman-resting-in-colorful-hammock-3771818/
             st.image("./assets/home_2.png",use_column_width=True)
             body5 = """
             <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
@@ -205,11 +204,7 @@ else:
             text_search = st.text_input(
                 "Location", value="Clayton", label_visibility="collapsed"
             )
-
-
-            #weather.display_location_weather(text_search)
-            #location_weather = weather.get_weather_data(-37.91667,145.11667)
-            # weather.weather_display_ui("Clayton",location_weather)
+            weather.display_location_weather(text_search)
 
         # Recommenders
         with t1_col2:
