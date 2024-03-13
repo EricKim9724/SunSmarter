@@ -180,7 +180,7 @@ else:
                 text_search = st.text_input(
                     "Location", value="Clayton", label_visibility="collapsed", key = "demo"
                 )
-                weather.display_location_weather(text_search, True)
+            weather.display_location_weather(text_search, True)
             
         with home_col2:
             #https://www.pexels.com/photo/cheerful-young-woman-resting-in-colorful-hammock-3771818/
