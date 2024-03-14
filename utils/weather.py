@@ -93,7 +93,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 hourly_forecast["ymin"] = 8
                 hourly_forecast["ymax"] = 12
                 chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
-                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                         y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
                         tooltip= alt.Tooltip('UV Index:Q', format='.1f')  
                 ).properties(title = "24 Hour UV Forecast")
@@ -104,8 +104,8 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     color = "Gray"
                 )
                 high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.3).encode(
-                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
-                        y=alt.Y('ymin:Q', title = "UV Index")
+                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        y=alt.Y('ymin:Q', title = "UV Index"),
                         y2="ymax:Q" 
                 )
                 chart_combined = chart + high_uv
