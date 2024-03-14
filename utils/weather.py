@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 import pymysql
 import altair as alt
+from utils.recommender import cloth_recommend
 
 def get_connection():
     return pymysql.connect(
@@ -78,10 +79,14 @@ def weather_display_ui(location, state, weather_data, demo = False):
     with st.container(border=True):
         st.subheader(f"**{location}**({state})", divider="rainbow")
         col1, col2, col3 = st.columns(3)
-        col1.metric("UV Index", f"{weather_data[0][1]}")
+        uvi = weather_data[0][1]
+        col1.metric("UV Index", f"{uvi}")
         col2.metric("Temperature", f"{weather_data[0][2]} °C")
-        col3.metric("Weather", f"{weather_data[0][3]}")
-        if not demo:
+        if demo:
+            recommendation,_ = cloth_recommend(round(uvi))
+            col3.metric("Cloth Recommendation",recommendation)
+        else:
+            col3.metric("Weather", f"{weather_data[0][3]}")
             with st.expander("Forecast", True):
                 hourly_forecast = weather_data[1]
                 hourly_forecast["UV Index"] = hourly_forecast["uvi"][:23]
@@ -91,7 +96,8 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 )
                 hourly_forecast["Time"] = hourly_forecast["Time"][:23]
                 hourly_forecast["ymin"] = 8
-                hourly_forecast["ymax"] = 12
+                hourly_forecast["y10"] = 10
+                hourly_forecast["y12"] = 12
                 chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
                         x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                         y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
@@ -104,11 +110,19 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     color = "Gray"
                 )
                 high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.3).encode(
-                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
                         y=alt.Y('ymin:Q', title = "UV Index"),
-                        y2="ymax:Q" 
+                        y2="y10:Q",
+                        tooltip=alt.value(None) 
                 )
-                chart_combined = chart + high_uv
+
+                ultra_uv = alt.Chart(hourly_forecast).mark_area(color="violet",opacity=0.4).encode(
+                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
+                        y=alt.Y('y10:Q', title = "UV Index"),
+                        y2="y12:Q",
+                        tooltip=alt.value(None)  
+                )
+                chart_combined = chart + high_uv + ultra_uv
                 st.altair_chart(chart_combined,use_container_width=True)
 
                 temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
