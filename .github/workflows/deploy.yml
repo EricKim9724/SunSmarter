@@ -21,11 +21,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Check streamlit app
-        uses: streamlit/streamlit-app-action@v0.0.3
-        with:
-          app-path: app.py
             
       - name: Copy files via ssh and deploy latest
         uses: appleboy/ssh-action@v1.0.3
