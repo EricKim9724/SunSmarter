@@ -131,24 +131,16 @@ else:
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Live UV & Weather Updates by Location
             </p>
-            <p style=text-align: center>
-                ⛅
-            </p>
+
             """, unsafe_allow_html=True)
             col2.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Clothing & Sunscreen Recommenders
             </p style=text-align: center>
-            <p>
-                👕
-            </p>
             """, unsafe_allow_html=True)
             col3.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Google Calendar Sunscreen Reminders
-            </p>
-            <p style="font-family:Helvetica; color: gray; font-size: 0.6rem;text-align: center">
-                (*WIP)
+                Google Calendar Sunscreen Reminders*
             </p>
             """, unsafe_allow_html=True)
             st.divider()
