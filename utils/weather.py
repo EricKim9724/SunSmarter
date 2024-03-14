@@ -79,9 +79,9 @@ def weather_display_ui(location, state, weather_data, demo = False):
     with st.container(border=True):
         st.subheader(f"**{location}**({state})", divider="rainbow")
         uvi = weather_data[0][1]
+        recommendation,_ = cloth_recommend(round(uvi))
         if demo:
             col1, col2 = st.columns([1,2])
-            recommendation,_ = cloth_recommend(round(uvi))
             col1.metric("UV Index", f"{uvi}")
             with col2:
                 html = f"""
@@ -98,52 +98,62 @@ def weather_display_ui(location, state, weather_data, demo = False):
             col1.metric("UV Index", f"{uvi}")
             col2.metric("Temperature", f"{weather_data[0][2]} °C")
             col3.metric("Weather", f"{weather_data[0][3]}")
-            with st.expander("Forecast", True):
-                hourly_forecast = weather_data[1]
-                hourly_forecast["UV Index"] = hourly_forecast["uvi"][:23]
-                hourly_forecast["Temperature"] = hourly_forecast["temp"][:23]
-                hourly_forecast["Time"] = pd.to_datetime(
-                    hourly_forecast["dt"], unit="s", utc=True
-                )
-                hourly_forecast["Time"] = hourly_forecast["Time"][:23]
-                hourly_forecast["ymin"] = 8
-                hourly_forecast["y10"] = 10
-                hourly_forecast["y12"] = 12
-                chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
-                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
-                        y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
-                        tooltip= alt.Tooltip('UV Index:Q', format='.1f')  
-                ).properties(title = "24 Hour UV Forecast")
+            st.divider()
+            html = f"""
+                 <p style="font-family:Helvetica; color: #393939; font-size: 1.3rem;text-align: left">
+                    Clothing Advice
+                </p>
+                <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: left">
+                    {recommendation}
+                </p>
+                """
+            st.markdown(html, unsafe_allow_html= True)
+            st.divider()
+            hourly_forecast = weather_data[1]
+            hourly_forecast["UV Index"] = hourly_forecast["uvi"][:23]
+            hourly_forecast["Temperature"] = hourly_forecast["temp"][:23]
+            hourly_forecast["Time"] = pd.to_datetime(
+                hourly_forecast["dt"], unit="s", utc=True
+            )
+            hourly_forecast["Time"] = hourly_forecast["Time"][:23]
+            hourly_forecast["ymin"] = 8
+            hourly_forecast["y10"] = 10
+            hourly_forecast["y12"] = 12
+            chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
+                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                    y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
+                    tooltip= alt.Tooltip('UV Index:Q', format='.1f')  
+            ).properties(title = "24 Hour UV Forecast")
 
-                chart.configure_title(
-                    fontSize=18,
-                    font = "Helvetica",
-                    color = "Gray"
-                )
-                high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.3).encode(
-                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
-                        y=alt.Y('ymin:Q', title = "UV Index"),
-                        y2="y10:Q",
-                        tooltip=alt.value(None) 
-                )
+            chart.configure_title(
+                fontSize=18,
+                font = "Helvetica",
+                color = "Gray"
+            )
+            high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.3).encode(
+                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
+                    y=alt.Y('ymin:Q', title = "UV Index"),
+                    y2="y10:Q",
+                    tooltip=alt.value(None) 
+            )
 
-                ultra_uv = alt.Chart(hourly_forecast).mark_area(color="violet",opacity=0.4).encode(
-                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
-                        y=alt.Y('y10:Q', title = "UV Index"),
-                        y2="y12:Q",
-                        tooltip=alt.value(None)  
-                )
-                chart_combined = chart + high_uv + ultra_uv
-                st.altair_chart(chart_combined,use_container_width=True)
+            ultra_uv = alt.Chart(hourly_forecast).mark_area(color=alt.value("#301934"),opacity=0.7).encode(
+                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
+                    y=alt.Y('y10:Q', title = "UV Index"),
+                    y2="y12:Q",
+                    tooltip=alt.value(None)  
+            )
+            chart_combined = chart + high_uv + ultra_uv
+            st.altair_chart(chart_combined,use_container_width=True)
 
-                temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
-                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
-                        y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
-                        tooltip= alt.Tooltip('Temperature:Q', format='.1f'),
-                        color=alt.value("#FFAA00")  
-                ).properties(title = "24 Hour Temperature Forecast")
+            temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
+                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                    y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
+                    tooltip= alt.Tooltip('Temperature:Q', format='.1f'),
+                    color=alt.value("#FFAA00")  
+            ).properties(title = "24 Hour Temperature Forecast")
 
-                st.altair_chart(temp_chart,use_container_width=True)
+            st.altair_chart(temp_chart,use_container_width=True)
                 #st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
                 #st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
 
