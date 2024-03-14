@@ -123,7 +123,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                     y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
                     tooltip= [alt.Tooltip('Time:T', format="%a %I:%M %p"),alt.Tooltip('UV Index:Q', format='.1f')],
-                    color=alt.value("#393939")  
+                    color=alt.value("gray")  
             ).properties(title = "24 Hour UV Forecast")
 
             chart.configure_title(
@@ -131,14 +131,14 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 font = "Helvetica",
                 color = "Gray"
             )
-            high_uv = alt.Chart(hourly_forecast).mark_area(color="red").encode(
+            high_uv = alt.Chart(hourly_forecast).mark_area(color="red", opacity = 0.6).encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
                     y=alt.Y('ymin:Q', title = "UV Index"),
                     y2="y10:Q",
                     tooltip=alt.value(None) 
             )
 
-            ultra_uv = alt.Chart(hourly_forecast).mark_area(color="indigo",opacity=0.7).encode(
+            ultra_uv = alt.Chart(hourly_forecast).mark_area(color="indigo",opacity=0.6).encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
                     y=alt.Y('y10:Q', title = "UV Index"),
                     y2="y12:Q",
