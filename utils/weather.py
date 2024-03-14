@@ -86,10 +86,10 @@ def weather_display_ui(location, state, weather_data, demo = False):
             recommendation,_ = cloth_recommend(round(uvi))
             with col3:
                 html = f"""
-                 <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: left">
+                 <p style="font-family:Helvetica; color: #393939; font-size: 0.7rem;text-align: left">
                     Clothing Advice
                 </p>
-                <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: left">
+                <p style="font-family:Helvetica; color: #393939; font-size: 0.8rem;text-align: left">
                     {recommendation}
                 </p>
                 """
