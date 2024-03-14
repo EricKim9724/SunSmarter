@@ -165,9 +165,10 @@ else:
                      """
                 st.markdown(text, unsafe_allow_html=True)
             with col_searchabar:
-                text_search_1 = st.text_input(
-                    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
-                )
+                pass
+                #text_search_1 = st.text_input(
+                #    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
+                #)
             #weather.display_location_weather(text_search_1)
             
         with home_col2:
