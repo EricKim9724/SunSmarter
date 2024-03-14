@@ -30,9 +30,21 @@ with col2:
 
 # login page
 if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
-    st.session_state["logged_in"] = True
-    st.rerun()
-
+    st.title("Login to SunShieldAdvisor")
+    with st.form("Login Form"):
+        email = st.text_input("Email")
+        password = st.text_input("Password", type="password")
+        submit_button = st.form_submit_button("Login")
+        if submit_button:
+            if authenticate_user(email, password):
+                st.session_state["logged_in"] = True
+                st.write(st.session_state["logged_in"])
+                st.experimental_rerun()
+            
+        #register_button = st.form_submit_button("Register")
+        #if register_button:
+        #    if register_user(email, password):
+        #        st.experimental_rerun()
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
