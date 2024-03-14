@@ -3,6 +3,7 @@ import requests
 import streamlit as st
 import pandas as pd
 import pymysql
+import altair as alt
 
 def get_connection():
     return pymysql.connect(
@@ -83,11 +84,41 @@ def weather_display_ui(location, state, weather_data, demo = False):
         if not demo:
             with st.expander("Forecast", True):
                 hourly_forecast = weather_data[1]
-                hourly_forecast["UV Index"] = hourly_forecast["uvi"]
-                hourly_forecast["Temperature"] = hourly_forecast["temp"]
+                hourly_forecast["UV Index"] = hourly_forecast["uvi"][:23]
+                hourly_forecast["Temperature"] = hourly_forecast["temp"][:23]
                 hourly_forecast["Time"] = pd.to_datetime(
-                    hourly_forecast["dt"] + weather_data[2], unit="s", utc=True
+                    hourly_forecast["dt"], unit="s", utc=True
                 )
-                st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
-                st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
+                hourly_forecast["Time"] = hourly_forecast["Time"][:23]
+                hourly_forecast["ymin"] = 8
+                hourly_forecast["ymax"] = 12
+                chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
+                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
+                        tooltip= alt.Tooltip('UV Index:Q', format='.1f')  
+                ).properties(title = "24 Hour UV Forecast")
+
+                chart.configure_title(
+                    fontSize=18,
+                    font = "Helvetica",
+                    color = "Gray"
+                )
+                high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.3).encode(
+                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        y=alt.Y('ymin:Q', title = "UV Index")
+                        y2="ymax:Q" 
+                )
+                chart_combined = chart + high_uv
+                st.altair_chart(chart_combined,use_container_width=True)
+
+                temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
+                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
+                        tooltip= alt.Tooltip('Temperature:Q', format='.1f'),
+                        color=alt.value("#FFAA00")  
+                ).properties(title = "24 Hour Temperature Forecast")
+
+                st.altair_chart(temp_chart,use_container_width=True)
+                #st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
+                #st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
 
