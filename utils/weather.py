@@ -151,7 +151,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                     y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
                     tooltip= [alt.Tooltip('Time:T', format="%a %I:%M %p"), alt.Tooltip('Temperature:Q', format='.1f')],
-                    color="orange" 
+                    color=alt.value("red") 
             ).properties(title = "24 Hour Temperature Forecast")
 
             st.altair_chart(temp_chart,use_container_width=True)
