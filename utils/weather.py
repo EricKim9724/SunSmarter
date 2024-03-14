@@ -18,7 +18,7 @@ def search_location(location):
     connection = get_connection()
     try:
         with connection.cursor() as cursor:
-            if location.isint():
+            if location.isdigit():
                 cursor.execute(
                     "SELECT * FROM postcodes_geo WHERE postcode = %s",
                     (location),
