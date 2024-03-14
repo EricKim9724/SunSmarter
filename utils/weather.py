@@ -122,8 +122,8 @@ def weather_display_ui(location, state, weather_data, demo = False):
             chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                     y=alt.Y('UV Index:Q', scale = alt.Scale(domainMin=0)),
-                    tooltip= ["Time",alt.Tooltip('UV Index:Q', format='.1f')],
-                    color=alt.value("#FF9BD2")  
+                    tooltip= [alt.Tooltip('Time:T', format="%a %I:%M %p"),alt.Tooltip('UV Index:Q', format='.1f')],
+                    color=alt.value("#393939")  
             ).properties(title = "24 Hour UV Forecast")
 
             chart.configure_title(
@@ -131,7 +131,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 font = "Helvetica",
                 color = "Gray"
             )
-            high_uv = alt.Chart(hourly_forecast).mark_area(color="red",opacity=0.5).encode(
+            high_uv = alt.Chart(hourly_forecast).mark_area(color="red").encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
                     y=alt.Y('ymin:Q', title = "UV Index"),
                     y2="y10:Q",
@@ -150,8 +150,8 @@ def weather_display_ui(location, state, weather_data, demo = False):
             temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                     y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
-                    tooltip= ["Time", alt.Tooltip('Temperature:Q', format='.1f')],
-                    color=alt.value("#393939")  
+                    tooltip= [alt.Tooltip('Time:T', format="%a %I:%M %p"), alt.Tooltip('Temperature:Q', format='.1f')],
+                    color="orange" 
             ).properties(title = "24 Hour Temperature Forecast")
 
             st.altair_chart(temp_chart,use_container_width=True)

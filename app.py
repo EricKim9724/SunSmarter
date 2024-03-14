@@ -116,10 +116,10 @@ else:
         home_col1,home_col2 = st.columns([1.6,3], gap = "medium")
         with home_col1:
             body4 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 2.2rem;font-weight: bold;text-align: center">
+            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2rem;font-weight: bold;text-align: center">
                 Stay Protected Anywhere
             </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;font-weight: italic;text-align: center">
+            <p style="font-family:recoleta-web; color: gray; font-size: 0.9rem;font-weight: italic;text-align: center">
                 with our features like:
             </p>
             """
@@ -131,10 +131,16 @@ else:
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Live UV & Weather Updates by Location
             </p>
+            <p>
+                emoji:⛅
+            </p>
             """, unsafe_allow_html=True)
             col2.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Clothing & Sunscreen Recommenders
+            </p>
+            <p>
+                emoji:👕
             </p>
             """, unsafe_allow_html=True)
             col3.markdown("""
@@ -146,6 +152,12 @@ else:
             </p>
             """, unsafe_allow_html=True)
             st.divider()
+            html = """
+            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 1.5rem;text-align: center">
+                Try our Live UV Advice:
+            </p>
+            """
+            st.markdown(html, unsafe_allow_html=True)
             col_text, col_searchabar = st.columns([1,2.5])
             with col_text:
                 text = """
