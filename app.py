@@ -139,7 +139,10 @@ else:
             """, unsafe_allow_html=True)
             col3.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Google Calendar Sunscreen Reminders (*WIP)
+                Google Calendar Sunscreen Reminders
+            </p>
+            <p style="font-family:Helvetica; color: gray; font-size: 0.6rem;text-align: center">
+                (*WIP)
             </p>
             """, unsafe_allow_html=True)
             st.divider()
@@ -155,7 +158,7 @@ else:
                 text_search_1 = st.text_input(
                     "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
                 )
-            weather.display_location_weather(demo=True)
+            weather.display_location_weather(text_search_1, demo=True)
             
         with home_col2:
             st.image("./assets/home_2.png",use_column_width=True)
