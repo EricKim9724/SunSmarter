@@ -201,14 +201,9 @@ else:
                 placeholder="Select Activity Type",
                 label_visibility="collapsed",
             )
-            sub_col1, sub_col2 = st.columns([3, 1])
-            with sub_col1:
-                if st.button("Start Outdoor Session: Get Sunscreen Reminders"):
-                    st.caption("Unfortunately this feature is still under development")
 
-            with sub_col2:
-                with st.popover(":clipboard: Reminder History"):
-                    reminder.display_reminder_history(st.session_state.user_email)
+            if st.button("Start Outdoor Session: Get Sunscreen Reminders", type="primary",use_container_width=True):
+                st.caption("Unfortunately this feature is still under development")
 
             # Adjustable Slider for Recommendations
             st.subheader("UV Index")
