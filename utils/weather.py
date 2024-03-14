@@ -66,7 +66,7 @@ def display_location_weather(location, demo = False):
             "Multiple matching locations found, please select:",
             [(i, row[2], row[1], row[3]) for i, row in enumerate(search)],
         )
-        location_found = search[select_match[0]]
+        location_found = search[select_match[0]]    
     else:
         location_found = search[0]
     lat, lon = location_found[-2], location_found[-1]
@@ -112,7 +112,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 st.altair_chart(chart_combined,use_container_width=True)
 
                 temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
-                        x=alt.X('Time:T',scale=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                        x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
                         y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
                         tooltip= alt.Tooltip('Temperature:Q', format='.1f'),
                         color=alt.value("#FFAA00")  
