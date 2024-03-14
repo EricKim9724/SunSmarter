@@ -1,4 +1,4 @@
-streamlit
+streamlit==1.32.0
 streamlit-authenticator
 pandas
 pymysql
@@ -9,3 +9,4 @@ google-auth
 google-auth-httplib2
 google-auth-oauthlib
 googleapis-common-protos
+altair

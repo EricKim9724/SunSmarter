@@ -188,6 +188,7 @@ else:
         # Recommenders
         with t1_col2:
             # Start Outdoor Session Functionality
+            st.session_state.user_email = ""
             st.subheader("Staying Sunsafe Outdoors")
             activity_type = st.selectbox(
                 "Activity Type",
@@ -202,17 +203,8 @@ else:
             )
             sub_col1, sub_col2 = st.columns([3, 1])
             with sub_col1:
-                if activity_type not in [
-                    "Swimming/Water Activity",
-                    "High Intensity Sports",
-                    "Low Intensity Sports",
-                ]:
-                    st.write("Please Select an Activity First")
-                else:
-                    if st.toggle("Get Reminders: Outdoor Session"):
-                        st.session_state.user_email = reminder.start_outdoor_session(
-                            activity_type
-                        )
+                if st.button("Start Outdoor Session: Get Sunscreen Reminders"):
+                    st.caption("Unfortunately this feature is still under development")
 
             with sub_col2:
                 with st.popover(":clipboard: Reminder History"):
