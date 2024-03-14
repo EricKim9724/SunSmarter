@@ -13,14 +13,21 @@ def get_connection():
         database=os.getenv("DB_DATABASE"),
     )
 
+
 def search_location(location):
     connection = get_connection()
     try:
         with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT * FROM postcodes_geo WHERE LOWER(suburb) = %s",
-                (location.lower()),
-            )
+            if location.isint():
+                cursor.execute(
+                    "SELECT * FROM postcodes_geo WHERE postcode = %s",
+                    (location),
+                )
+            else:
+                cursor.execute(
+                    "SELECT * FROM postcodes_geo WHERE LOWER(suburb) = %s",
+                    (location.lower()),
+                )
             result = cursor.fetchall()
             if result:
                 return result
@@ -46,7 +53,7 @@ def get_weather_data(lat, lon):
         return None
 
 
-def display_location_weather(location):
+def display_location_weather(location, demo = False):
     search = search_location(location)
     if search == None:
         st.write(
@@ -63,23 +70,24 @@ def display_location_weather(location):
         location_found = search[0]
     lat, lon = location_found[-2], location_found[-1]
     weather = get_weather_data(lat, lon)
-    weather_display_ui(location_found[2], location_found[3], weather)
+    weather_display_ui(location_found[2], location_found[3], weather, demo)
 
 
-def weather_display_ui(location, state, weather_data):
+def weather_display_ui(location, state, weather_data, demo = False):
     with st.container(border=True):
         st.subheader(f"**{location}**({state})", divider="rainbow")
         col1, col2, col3 = st.columns(3)
         col1.metric("UV Index", f"{weather_data[0][1]}")
         col2.metric("Temperature", f"{weather_data[0][2]} °C")
         col3.metric("Weather", f"{weather_data[0][3]}")
-        with st.expander("Forecast", True):
-            hourly_forecast = weather_data[1]
-            hourly_forecast["UV Index"] = hourly_forecast["uvi"]
-            hourly_forecast["Temperature"] = hourly_forecast["temp"]
-            hourly_forecast["Time"] = pd.to_datetime(
-                hourly_forecast["dt"] + weather_data[2], unit="s", utc=True
-            )
-            st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
-            st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
+        if not demo:
+            with st.expander("Forecast", True):
+                hourly_forecast = weather_data[1]
+                hourly_forecast["UV Index"] = hourly_forecast["uvi"]
+                hourly_forecast["Temperature"] = hourly_forecast["temp"]
+                hourly_forecast["Time"] = pd.to_datetime(
+                    hourly_forecast["dt"] + weather_data[2], unit="s", utc=True
+                )
+                st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
+                st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
 

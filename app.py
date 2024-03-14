@@ -29,22 +29,9 @@ with col2:
 
 
 # login page
-if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
-    st.title("Login to SunShieldAdvisor")
-    with st.form("Login Form"):
-        email = st.text_input("Email")
-        password = st.text_input("Password", type="password")
-        submit_button = st.form_submit_button("Login")
-        if submit_button:
-            if authenticate_user(email, password):
-                st.session_state["logged_in"] = True
-                st.write(st.session_state["logged_in"])
-                st.experimental_rerun()
-            
-        register_button = st.form_submit_button("Register")
-        if register_button:
-            if register_user(email, password):
-                st.experimental_rerun()
+if False:
+    pass
+
 else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
@@ -100,7 +87,7 @@ else:
             <p style="font-family:recoleta-web; color: #525252; font-size: 1.4rem;text-align: center;">
                 Just <span>ONE</span> severe sunburn in childhood
             </p>
-            <p style="font-family:recoleta-web; color: #FF4B4B; font-size: 4.2rem; font-weight: bold; text-align: center;font-style: italic">
+            <p style="font-family:recoleta-web; color: #FF4B4B; font-size: 4.2rem; font-weight: bold; text-align: center">
                 DOUBLES
             </p>
             <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem; text-align: center;">
@@ -152,7 +139,7 @@ else:
             """, unsafe_allow_html=True)
             col3.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
-                Google Calendar Sunscreen Reminders
+                Google Calendar Sunscreen Reminders (*WIP)
             </p>
             """, unsafe_allow_html=True)
             st.divider()
@@ -165,11 +152,10 @@ else:
                      """
                 st.markdown(text, unsafe_allow_html=True)
             with col_searchabar:
-                pass
-                #text_search_1 = st.text_input(
-                #    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
-                #)
-            #weather.display_location_weather(text_search_1)
+                text_search_1 = st.text_input(
+                    "Location", value="Clayton", label_visibility="collapsed", key = "xdd"
+                )
+            weather.display_location_weather(demo=True)
             
         with home_col2:
             st.image("./assets/home_2.png",use_column_width=True)
