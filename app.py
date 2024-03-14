@@ -48,7 +48,7 @@ else:
         }
 
         .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size:1.5em;
+        font-size:1.3em;
         font-family:recoleta-web;
         }
     </style>
@@ -131,16 +131,16 @@ else:
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Live UV & Weather Updates by Location
             </p>
-            <p>
-                emoji:⛅
+            <p style=text-align: center>
+                ⛅
             </p>
             """, unsafe_allow_html=True)
             col2.markdown("""
             <p style="font-family:Helvetica; color: #393939; font-size: 1rem;text-align: center">
                 Clothing & Sunscreen Recommenders
-            </p>
+            </p style=text-align: center>
             <p>
-                emoji:👕
+                👕
             </p>
             """, unsafe_allow_html=True)
             col3.markdown("""
@@ -153,7 +153,7 @@ else:
             """, unsafe_allow_html=True)
             st.divider()
             html = """
-            <p style="font-family:recoleta-web; color: #EA8C00; font-size: 1.5rem;text-align: center">
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1.3rem;text-align: center">
                 Try our Live UV Advice:
             </p>
             """
@@ -173,6 +173,7 @@ else:
             weather.display_location_weather(text_search_1, demo=True)
             
         with home_col2:
+            padding2 = st.container(height=20, border=False)
             st.image("./assets/home_2.png",use_column_width=True)
             body5 = """
             <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
