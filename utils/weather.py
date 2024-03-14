@@ -137,7 +137,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     tooltip=alt.value(None) 
             )
 
-            ultra_uv = alt.Chart(hourly_forecast).mark_area(color=alt.value("#301934"),opacity=0.7).encode(
+            ultra_uv = alt.Chart(hourly_forecast).mark_area(color="indigo",opacity=0.7).encode(
                     x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4), title = "Day, Time"),
                     y=alt.Y('y10:Q', title = "UV Index"),
                     y2="y12:Q",
