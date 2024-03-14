@@ -78,15 +78,14 @@ def display_location_weather(location, demo = False):
 def weather_display_ui(location, state, weather_data, demo = False):
     with st.container(border=True):
         st.subheader(f"**{location}**({state})", divider="rainbow")
-        col1, col2, col3 = st.columns([1,1,1.5])
         uvi = weather_data[0][1]
-        col1.metric("UV Index", f"{uvi}")
-        col2.metric("Temperature", f"{weather_data[0][2]} °C")
         if demo:
+            col1, col2 = st.columns([1,2])
             recommendation,_ = cloth_recommend(round(uvi))
-            with col3:
+            col1.metric("UV Index", f"{uvi}")
+            with col2:
                 html = f"""
-                 <p style="font-family:Helvetica; color: #393939; font-size: 0.7rem;text-align: left">
+                 <p style="font-family:Helvetica; color: #393939; font-size: 0.8rem;text-align: left">
                     Clothing Advice
                 </p>
                 <p style="font-family:Helvetica; color: #393939; font-size: 0.8rem;text-align: left">
@@ -95,6 +94,9 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 """
                 st.markdown(html, unsafe_allow_html= True)
         else:
+            col1, col2, col3 = st.columns([1,1,1.5])
+            col1.metric("UV Index", f"{uvi}")
+            col2.metric("Temperature", f"{weather_data[0][2]} °C")
             col3.metric("Weather", f"{weather_data[0][3]}")
             with st.expander("Forecast", True):
                 hourly_forecast = weather_data[1]
