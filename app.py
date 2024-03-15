@@ -190,21 +190,25 @@ else:
 
     # tab2 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab2:
-        col1,col2 = st.columns([0.4,1])
+        col1,col2 = st.columns([0.8,1], gap = "large")
         with col1:
+            padding = st.container(height=100, border=False)
             inter0 = """
-                <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2rem;text-align: center">
+                <p style="font-family:recoleta-web; color: #EA8C00; font-weight: bold;font-size: 2rem;text-align: left">
                     Plan your day
-                </p>
-                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
-                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
                 </p>
                 """
             st.markdown(inter0, unsafe_allow_html=True)
             st.image("./assets/uvsearch.png",use_column_width= True)
             caption = """
-            <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
+            <p style="font-family:recoleta-web; color: gray; font-size: 0.7rem;text-align: center">
                 By Ketut Subiyanto via https://www.pexels.com/photo/asian-sportswoman-using-smart-watch-and-smartphone-during-training-4436296/
+            </p>
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
+                .
+            </p>
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
+                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
             </p>
             """
             st.markdown(caption, unsafe_allow_html=True)
