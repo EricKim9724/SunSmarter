@@ -369,7 +369,7 @@ else:
                     st.write(sunscreen_usage_df)
 
         # Task 1.3 UV Impacts Handbook
-        with tab1:
+        with tab3:
             padding = st.container(height=20, border=False)
             t3_col1, t3_col2, t3_col3 = st.columns(3)
 
