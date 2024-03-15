@@ -36,7 +36,7 @@ else:
     tab_names = [
         " :house: Home ",
         " :sun_small_cloud: Live UV Updates",
-        " :shirt: Clothing and Sunscreen Advice"
+        " :shirt: Clothing and Sunscreen Advice",
         " :book: UV Impacts Handbook",
     ]
     home, tab2, tab3, tab4 = st.tabs(tab_names)
