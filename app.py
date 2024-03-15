@@ -35,10 +35,11 @@ else:
     # Currently 3 "Pages" but we can just use tabs
     tab_names = [
         " :house: Home ",
-        " :wrench: UV Tools",
+        " :sun_small_cloud: Live UV Updates",
+        " :shirt: Clothing and Sunscreen Advice"
         " :book: UV Impacts Handbook",
     ]
-    home, tab2, tab3 = st.tabs(tab_names)
+    home, tab2, tab3, tab4 = st.tabs(tab_names)
     css = """
     <style>
         .stTabs [data-baseweb="tab-list"] {
@@ -189,78 +190,82 @@ else:
 
     # tab2 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab2:
-        col1, col2, col3 = st.columns([0.5, 1, 0.5])
-        with col2:
-            padding = st.container(height=20, border=False)
-            st.session_state.user_email = " "
-
-            padding = st.container(height=20, border=False)
+        col1,col2 = st.columns([0.4,1])
+        with col1:
             inter0 = """
                 <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2rem;text-align: center">
-                    Ready to explore your sun-safe journey? Enter your location above and unlock a world of tailored advice to keep you protected from UV rays, all day long!
+                    Plan your day
+                </p>
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
+                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
                 </p>
                 """
             st.markdown(inter0, unsafe_allow_html=True)
-            padding = st.container(height=20, border=False)
-            # UV Map
-            st.subheader("Search for a Location")
+            st.image("./assets/uvsearch",use_column_width= True)
+            caption = """
+            <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
+                By Ketut Subiyanto via https://www.pexels.com/photo/asian-sportswoman-using-smart-watch-and-smartphone-during-training-4436296/
+            </p>
+            """
+            st.markdown(caption, unsafe_allow_html=True)
+        with col2:
+            st.subheader("Live UV and Weather Information ")
             location_search = """
                 <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
                     Search for a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates.
                 </p>
                  """
             st.markdown(location_search, unsafe_allow_html=True)
-
             text_search = st.text_input(
                 "Location", value="Clayton", label_visibility="collapsed"
             )
             weather.display_location_weather(text_search)
-            # location_weather = weather.get_weather_data(-37.91667,145.11667)
-            # weather.weather_display_ui("Clayton",location_weather)
-
-            # Recommenders
-            # Start Outdoor Session Functionality
-            padding = st.container(height=150, border=False)
-            inter1 = """
-                <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2rem;text-align: center">
-                    Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
-                </p>
+    with tab3:
+        # Start Outdoor Session Functionality
+        st.divider()
+        choose_activity = """
+            <p style="font-family:recoleta-web; color: #FF4B4B; font-size:2rem;text-align: center">
+                "Going Outdoors?
+            </p>
+            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
+                Choose your activity and sun shield advisor can protect you!
+            </p>
                 """
+        st.markdown(choose_activity, unsafe_allow_html=True)
+        st.divider()
+        with st.container(border=True):
+            inter1 = """
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1.3rem;text-align: center">
+                Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
+            </p>
+            """
             st.markdown(inter1, unsafe_allow_html=True)
-            padding = st.container(height=40, border=False)
-            with st.container(border=True):
-                st.session_state.user_email = ""
-                st.subheader("Staying Sunsafe Outdoors")
-                choose_activity = """
-                    <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
-                        Choose your activity and get started with sunscreen reminders.
-                    </p>
-                     """
-                st.markdown(choose_activity, unsafe_allow_html=True)
-                activity_type = st.selectbox(
-                    "Activity Type",
-                    (
-                        "Swimming/Water Activity",
-                        "High Intensity Sports",
-                        "Low Intensity Sports",
-                    ),
-                    index=None,
-                    placeholder="Select Activity Type",
-                    label_visibility="collapsed",
-                )
+            st.session_state.user_email = ""
+            st.subheader()
+            activity_type = st.selectbox(
+                "Activity Type",
+                (
+                    "Swimming/Water Activity",
+                    "High Intensity Sports",
+                    "Low Intensity Sports",
+                ),
+                index=None,
+                placeholder="Select Activity Type",
+                label_visibility="collapsed",
+            )
 
-                if st.button(
-                    "Start Outdoor Session: Get Sunscreen Reminders",
-                    type="primary",
-                    use_container_width=True,
-                ):
-                    st.caption("Unfortunately this feature is still under development")
+            if st.button(
+                "Start Outdoor Session: Get Sunscreen Reminders",
+                type="primary",
+                use_container_width=True,
+            ):
+                st.caption("Unfortunately this feature is still under development")
 
             # Adjustable Slider for Recommendations
             padding = st.container(height=150, border=False)
             inter2 = """
-                <p style="font-family:recoleta-web; color: #EA8C00; font-size: 2rem;text-align: center">
-                    Discover the ideal clothing and sunscreen amount for your outdoor adventures. From hats to long sleeves, we'll help you stay sun safety!
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem;text-align: center">
+                    From hats to long sleeves, we'll help you stay sun safety!
                 </p>
                 """
             st.markdown(inter2, unsafe_allow_html=True)
@@ -369,7 +374,7 @@ else:
                     st.write(sunscreen_usage_df)
 
         # Task 1.3 UV Impacts Handbook
-        with tab3:
+        with tab4:
             padding = st.container(height=20, border=False)
             t3_col1, t3_col2, t3_col3 = st.columns(3)
 
