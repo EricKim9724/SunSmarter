@@ -98,6 +98,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
             col1.metric("UV Index", f"{uvi}")
             col2.metric("Temperature", f"{weather_data[0][2]} °C")
             col3.metric("Weather", f"{weather_data[0][3]}")
+            padding = st.container(height=20, border=False)
             st.divider()
             html = f"""
                  <p style="font-family:Helvetica; color: #393939; font-size: 1.3rem;text-align: left">
@@ -109,6 +110,7 @@ def weather_display_ui(location, state, weather_data, demo = False):
                 """
             st.markdown(html, unsafe_allow_html= True)
             st.divider()
+            padding = st.container(height=20, border=False)
             hourly_forecast = weather_data[1]
             hourly_forecast["UV Index"] = hourly_forecast["uvi"][:23]
             hourly_forecast["Temperature"] = hourly_forecast["temp"][:23]
@@ -149,8 +151,10 @@ def weather_display_ui(location, state, weather_data, demo = False):
 
             c1,c2 = st.columns(2, gap = "medium") 
             with c1:
+                padding = st.container(height=30, border=False)
                 st.altair_chart(chart_combined,use_container_width=True)
             with c2:
+                padding = st.container(height=30, border=False)
                 st.altair_chart(temp_chart,use_container_width=True)
                 #st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
                 #st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
