@@ -191,7 +191,7 @@ else:
     # tab2 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab2:
         padding = st.container(height=30, border=False)
-        col1,col2 = st.columns([0.6,1], gap = "large")
+        col1,col2 = st.columns([0.5,1], gap = "large")
         with col1:
             st.divider()
             st.subheader("Plan Your Day: Search any Location")
@@ -225,13 +225,19 @@ else:
                 <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2rem;text-align: left">
                     Going Outdoors?
                 </p>
-                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: left">
                     Choose your activity and adjust the UV slider, sun shield advisor can protect you!
                 </p>
                     """
             st.markdown(choose_activity, unsafe_allow_html=True)
         with c2:
             st.subheader("Activity")
+            html = """
+                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
+                    Slide to adjust the UV index to discover suitable clothing.
+                </p>
+                    """
+            st.markdown(html, unsafe_allow_html=True)
             activity_type = st.selectbox(
                 "Activity Type",
                 (
@@ -258,7 +264,7 @@ else:
 
         st.divider()
         padding = st.container(height=40, border=False)
-        c1,c2 = st.columns(2)
+        c1,c2 = st.columns(2, gap = "large")
         with c1:
             with st.container(border=True):
                 # Task 1.2 Clothing Recommender
@@ -266,7 +272,7 @@ else:
                 clothing_advice, image_filenames = recommender.cloth_recommend(uv_index)
                 st.write(clothing_advice)
                 # Display the images if available
-                with st.expander("See Visual Recommendations" , expanded = True):
+                with st.expander("Hide Visual Recommendations" , expanded = True):
                     if image_filenames:
                         for filename in image_filenames.split(","):
                             image_path = f"./assets/{filename}.png"  # Assuming images are stored in the assets folder with .jpg extension
@@ -307,7 +313,6 @@ else:
                     user_height = st.slider("**Height (cm)**", 100, 250, 170)
                 with sub_col4:
                     user_weight = st.slider("**Weight (kg)**", 30, 200, 70)
-
                 # When calling the sunscreen_recommend function, pass the selected activity type to it
                 sunscreen_usage_df = sunscreen_recommend(
                     uv_index, user_height, user_weight, activity_type
@@ -317,7 +322,7 @@ else:
                 st.markdown(
                     f"**Recommendation: Apply {total_sunscreen:.1f}ml of Sunscreen**"
                 )
-                with st.expander("Click for more details", expanded = True):
+                with st.expander("Hide details", expanded = True):
                     st.markdown(
                         "**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors."
                     )
