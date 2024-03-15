@@ -154,7 +154,11 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     color=alt.value("#EA8C00") 
             ).properties(title = "24 Hour Temperature Forecast")
 
-            st.altair_chart(temp_chart,use_container_width=True)
+            c1,c2 = st.columns(2) 
+            with c1:
+                st.altair_chart(chart_combined,use_container_width=True)
+            with c2:
+                st.altair_chart(temp_chart,use_container_width=True)
                 #st.line_chart(hourly_forecast, x="Time", y="UV Index", color="#520160")
                 #st.line_chart(hourly_forecast, x="Time", y="Temperature", color="#ffa500")
 

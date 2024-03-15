@@ -217,24 +217,18 @@ else:
     with tab3:
         # Start Outdoor Session Functionality
         st.divider()
-        choose_activity = """
-            <p style="font-family:recoleta-web; color: #FF4B4B; font-size:2rem;text-align: center">
-                Going Outdoors?
-            </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
-                Choose your activity and sun shield advisor can protect you!
-            </p>
-                """
-        st.markdown(choose_activity, unsafe_allow_html=True)
-        st.divider()
-        with st.container(border=True):
-            inter1 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
-                Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
-            </p>
-            """
-            st.markdown(inter1, unsafe_allow_html=True)
-            st.session_state.user_email = ""
+        c1,c2,c3 = st.columns(3)
+        with c1:
+            choose_activity = """
+                <p style="font-family:recoleta-web; color: #FF4B4B; font-size:2rem;text-align: center">
+                    Going Outdoors?
+                </p>
+                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
+                    Choose your activity and sun shield advisor can protect you!
+                </p>
+                    """
+            st.markdown(choose_activity, unsafe_allow_html=True)
+        with c2:
             st.subheader("Activity")
             activity_type = st.selectbox(
                 "Activity Type",
@@ -247,7 +241,30 @@ else:
                 placeholder="Select Activity Type",
                 label_visibility="collapsed",
             )
+        with c3:
+            st.subheader("UV Index")
+            slide_UV = """
+                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
+                    Slide to adjust the UV index to discover suitable clothing.
+                </p>
+                    """
+            st.markdown(slide_UV, unsafe_allow_html=True)
+            current_location_uv = 10
+            uv_index = st.slider(
+                "UV", 0, 12, value=current_location_uv, label_visibility="collapsed"
+            )
 
+        st.divider()
+        padding
+        with st.container(border=True):
+            inter1 = """
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
+                Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
+            </p>
+            """
+            st.markdown(inter1, unsafe_allow_html=True)
+            st.session_state.user_email = ""
+            
             if st.button(
                 "Start Outdoor Session: Get Sunscreen Reminders",
                 type="primary",
@@ -255,33 +272,13 @@ else:
             ):
                 st.caption("Unfortunately this feature is still under development")
 
-            # Adjustable Slider for Recommendations
-            padding = st.container(height=150, border=False)
-            inter2 = """
-                <p style="font-family:recoleta-web; color: #393939; font-size: 1.4rem;text-align: center">
-                    From hats to long sleeves, we'll help you stay sun safety!
-                </p>
-                """
-            st.markdown(inter2, unsafe_allow_html=True)
-            padding = st.container(height=40, border=False)
+        c1,c2 = st.columns(2)
+        with c1:
             with st.container(border=True):
-                st.subheader("UV Index")
-                slide_UV = """
-                    <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
-                        Slide to adjust the UV index to discover suitable clothing.
-                    </p>
-                     """
-                st.markdown(slide_UV, unsafe_allow_html=True)
-                current_location_uv = 10
-                uv_index = st.slider(
-                    "UV", 0, 12, value=current_location_uv, label_visibility="collapsed"
-                )
-
                 # Task 1.2 Clothing Recommender
                 st.subheader("Clothing Recommender", divider="orange")
                 clothing_advice, image_filenames = recommender.cloth_recommend(uv_index)
                 st.write(clothing_advice)
-
                 # Display the images if available
                 with st.expander("See Visual Recommendations"):
                     if image_filenames:
@@ -309,7 +306,8 @@ else:
                             )
                     else:
                         st.write("No images available for this recommendation.")
-
+        with c2:
+            with st.container(border=True):
                 # Task 1.4 Sunscreen Recommender
                 st.subheader("Sunscreen Recommender", divider="orange")
                 sunscreen_amount = """
