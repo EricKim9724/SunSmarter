@@ -201,7 +201,7 @@ else:
                 </p>
                 """
             st.markdown(inter0, unsafe_allow_html=True)
-            st.image("./assets/uvsearch",use_column_width= True)
+            st.image("./assets/uvsearch.png",use_column_width= True)
             caption = """
             <p style="font-family:recoleta-web; color: gray; font-size: 0.8rem;text-align: center">
                 By Ketut Subiyanto via https://www.pexels.com/photo/asian-sportswoman-using-smart-watch-and-smartphone-during-training-4436296/
