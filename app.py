@@ -221,7 +221,7 @@ else:
         c1,_,c2,_,c3 = st.columns([1,0.3,3,0.3,3])
         with c1:
             choose_activity = """
-                <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2.4rem;text-align: left">
+                <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2.2rem;text-align: left">
                     Going Outdoors?
                 </p>
                     """
@@ -260,7 +260,7 @@ else:
 
         st.divider()
         padding = st.container(height=40, border=False)
-        c1,c2 = st.columns(2, gap = "large")
+        c1,c2 = st.columns([1,1.5])
         with c1:
             with st.container(border=True):
                 # Task 1.2 Clothing Recommender
