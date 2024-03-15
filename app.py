@@ -191,7 +191,7 @@ else:
     # tab2 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab2:
         padding = st.container(height=30, border=False)
-        col1,col2 = st.columns([0.7,1], gap = "large")
+        col1,col2 = st.columns([0.6,1], gap = "large")
         with col1:
             st.subheader("Plan Your Day")
             location_search = """
@@ -255,7 +255,7 @@ else:
             )
 
         st.divider()
-        padding
+        padding = st.container(height=40, border=False)
         with st.container(border=True):
             inter1 = """
             <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
