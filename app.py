@@ -193,15 +193,16 @@ else:
         padding = st.container(height=30, border=False)
         col1,col2 = st.columns([0.7,1], gap = "large")
         with col1:
-            inter0 = """
-                <p style="font-family:recoleta-web; color: #393939; font-weight: bold;font-size: 2rem;text-align: left">
-                    Plan your day
+            st.subheader("Plan Your Day")
+            location_search = """
+                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
+                    Search for a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates and Forecasts.
                 </p>
-                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: left">
-                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
-                </p>
-                """
-            st.markdown(inter0, unsafe_allow_html=True)
+                 """
+            st.markdown(location_search, unsafe_allow_html=True)
+            text_search = st.text_input(
+                "Location", value="Clayton", label_visibility="collapsed"
+            )
             padding = st.container(height=20, border=False)
             st.image("./assets/uvsearch.png",use_column_width= True)
             caption = """
@@ -212,15 +213,6 @@ else:
             st.markdown(caption, unsafe_allow_html=True)
         with col2:
             st.subheader("Live UV and Weather Information ")
-            location_search = """
-                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
-                    Search for a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates.
-                </p>
-                 """
-            st.markdown(location_search, unsafe_allow_html=True)
-            text_search = st.text_input(
-                "Location", value="Clayton", label_visibility="collapsed"
-            )
             weather.display_location_weather(text_search)
     with tab3:
         # Start Outdoor Session Functionality
