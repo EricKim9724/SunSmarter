@@ -190,25 +190,23 @@ else:
 
     # tab2 is the main page w/ 2 colummns (UV Map, Recommenders)
     with tab2:
-        col1,col2 = st.columns([0.8,1], gap = "large")
+        padding = st.container(height=30, border=False)
+        col1,col2 = st.columns([0.7,1], gap = "large")
         with col1:
-            padding = st.container(height=100, border=False)
             inter0 = """
-                <p style="font-family:recoleta-web; color: #EA8C00; font-weight: bold;font-size: 2rem;text-align: left">
+                <p style="font-family:recoleta-web; color: #393939; font-weight: bold;font-size: 2rem;text-align: left">
                     Plan your day
+                </p>
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: left">
+                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
                 </p>
                 """
             st.markdown(inter0, unsafe_allow_html=True)
+            padding = st.container(height=20, border=False)
             st.image("./assets/uvsearch.png",use_column_width= True)
             caption = """
             <p style="font-family:recoleta-web; color: gray; font-size: 0.7rem;text-align: center">
                 By Ketut Subiyanto via https://www.pexels.com/photo/asian-sportswoman-using-smart-watch-and-smartphone-during-training-4436296/
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
-                .
-            </p>
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
-                    Enter a location and get tailored advice to keep you protected from UV rays, all day long!
             </p>
             """
             st.markdown(caption, unsafe_allow_html=True)
@@ -229,9 +227,9 @@ else:
         st.divider()
         choose_activity = """
             <p style="font-family:recoleta-web; color: #FF4B4B; font-size:2rem;text-align: center">
-                "Going Outdoors?
+                Going Outdoors?
             </p>
-            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
+            <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
                 Choose your activity and sun shield advisor can protect you!
             </p>
                 """
@@ -239,13 +237,13 @@ else:
         st.divider()
         with st.container(border=True):
             inter1 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1.3rem;text-align: center">
+            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
                 Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
             </p>
             """
             st.markdown(inter1, unsafe_allow_html=True)
             st.session_state.user_email = ""
-            st.subheader()
+            st.subheader("Activity")
             activity_type = st.selectbox(
                 "Activity Type",
                 (
