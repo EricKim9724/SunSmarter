@@ -193,7 +193,7 @@ else:
         padding = st.container(height=30, border=False)
         col1,col2 = st.columns([0.5,1], gap = "large")
         with col1:
-            st.subheader("Plan Your Day: Search any Location")
+            st.subheader("Plan Your Day:\n Search any Location")
             location_search = """
                 <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
                     Enter a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates and Forecasts.
@@ -221,11 +221,8 @@ else:
         c1,_,c2,_,c3 = st.columns([1,0.3,3,0.3,3])
         with c1:
             choose_activity = """
-                <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2rem;text-align: left">
+                <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2.4rem;text-align: left">
                     Going Outdoors?
-                </p>
-                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: left">
-                    Choose your activity and adjust the UV slider, sun shield advisor can protect you!
                 </p>
                     """
             st.markdown(choose_activity, unsafe_allow_html=True)
@@ -233,7 +230,7 @@ else:
             st.subheader("Activity")
             html = """
                 <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
-                    Slide to adjust the UV index to discover suitable clothing.
+                    What will you be doing today?
                 </p>
                     """
             st.markdown(html, unsafe_allow_html=True)
