@@ -193,16 +193,18 @@ else:
         padding = st.container(height=30, border=False)
         col1,col2 = st.columns([0.6,1], gap = "large")
         with col1:
-            st.subheader("Plan Your Day")
+            st.divider()
+            st.subheader("Plan Your Day: Search any Location")
             location_search = """
                 <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: left">
-                    Search for a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates and Forecasts.
+                    Enter a Location (Postcode/Surburb) to get the latest UV Index and Weather Updates and Forecasts.
                 </p>
                  """
             st.markdown(location_search, unsafe_allow_html=True)
             text_search = st.text_input(
                 "Location", value="Clayton", label_visibility="collapsed"
             )
+            st.divider()
             padding = st.container(height=20, border=False)
             st.image("./assets/uvsearch.png",use_column_width= True)
             caption = """
@@ -220,11 +222,11 @@ else:
         c1,c2,c3 = st.columns(3)
         with c1:
             choose_activity = """
-                <p style="font-family:recoleta-web; color: #FF4B4B; font-size:2rem;text-align: center">
+                <p style="font-family:recoleta-web; color: #FF4B4B; font-weight:bold; font-size:2rem;text-align: left">
                     Going Outdoors?
                 </p>
-                <p style="font-family:recoleta-web; color: gray; font-size: 1rem;text-align: center">
-                    Choose your activity and sun shield advisor can protect you!
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1.2rem;text-align: center">
+                    Choose your activity and adjust the UV slider, sun shield advisor can protect you!
                 </p>
                     """
             st.markdown(choose_activity, unsafe_allow_html=True)
@@ -256,22 +258,6 @@ else:
 
         st.divider()
         padding = st.container(height=40, border=False)
-        with st.container(border=True):
-            inter1 = """
-            <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
-                Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
-            </p>
-            """
-            st.markdown(inter1, unsafe_allow_html=True)
-            st.session_state.user_email = ""
-            
-            if st.button(
-                "Start Outdoor Session: Get Sunscreen Reminders",
-                type="primary",
-                use_container_width=True,
-            ):
-                st.caption("Unfortunately this feature is still under development")
-
         c1,c2 = st.columns(2)
         with c1:
             with st.container(border=True):
@@ -280,7 +266,7 @@ else:
                 clothing_advice, image_filenames = recommender.cloth_recommend(uv_index)
                 st.write(clothing_advice)
                 # Display the images if available
-                with st.expander("See Visual Recommendations"):
+                with st.expander("See Visual Recommendations" , expanded = True):
                     if image_filenames:
                         for filename in image_filenames.split(","):
                             image_path = f"./assets/{filename}.png"  # Assuming images are stored in the assets folder with .jpg extension
@@ -331,7 +317,7 @@ else:
                 st.markdown(
                     f"**Recommendation: Apply {total_sunscreen:.1f}ml of Sunscreen**"
                 )
-                with st.expander("Click for more details"):
+                with st.expander("Click for more details", expanded = True):
                     st.markdown(
                         "**Apply before going outdoors:** Ensure skin is clean and dry before use and apply 20 minutes before going outdoors."
                     )
@@ -364,6 +350,23 @@ else:
                         )
                     # Display sunscreen usage information in tabular form
                     st.write(sunscreen_usage_df)
+        c1,c2,c3 = st.columns([0.2,1,0.2])  
+        with c2:   
+            with st.container(border=True):
+                inter1 = """
+                <p style="font-family:recoleta-web; color: #393939; font-size: 1rem;text-align: center">
+                    Whether it's a day at the beach or a hike in the mountains, SunShield Advisor has you covered. Select your activity and let us remind you when it's time to reapply sunscreen.
+                </p>
+                """
+                st.markdown(inter1, unsafe_allow_html=True)
+                st.session_state.user_email = ""
+                
+                if st.button(
+                    "Start Outdoor Session: Get Sunscreen Reminders",
+                    type="primary",
+                    use_container_width=True,
+                ):
+                    st.caption("Unfortunately this feature is still under development")
 
         # Task 1.3 UV Impacts Handbook
         with tab4:

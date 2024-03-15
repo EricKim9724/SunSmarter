@@ -145,16 +145,15 @@ def weather_display_ui(location, state, weather_data, demo = False):
                     tooltip=alt.value(None)  
             )
             chart_combined = high_uv + ultra_uv + chart
-            st.altair_chart(chart_combined,use_container_width=True)
 
             temp_chart = alt.Chart(hourly_forecast).mark_line(point = alt.OverlayMarkDef(filled=False,fill = "white")).encode(
-                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4)),
+                    x=alt.X('Time:T',axis=alt.Axis(format = "%a %I:%M %p",tickCount = 4, title = "Day, Time")),
                     y=alt.Y('Temperature:Q', scale = alt.Scale(domainMin=0),title = "Temperature (°C)"),
                     tooltip= [alt.Tooltip('Time:T', format="%a %I:%M %p"), alt.Tooltip('Temperature:Q', format='.1f')],
                     color=alt.value("#EA8C00") 
             ).properties(title = "24 Hour Temperature Forecast")
 
-            c1,c2 = st.columns(2) 
+            c1,c2 = st.columns(2, gap = "medium") 
             with c1:
                 st.altair_chart(chart_combined,use_container_width=True)
             with c2:
